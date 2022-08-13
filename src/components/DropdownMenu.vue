@@ -3,7 +3,7 @@
     <ul>
       <li>
         <router-link to="/my-profile">
-          <span>My Profile</span>
+          <span>M Profile</span>
         </router-link>
       </li>
       <li>
