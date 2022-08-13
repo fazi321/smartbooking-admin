@@ -1,16 +1,21 @@
 <template>
   <default-layout>
-    <h1>Home</h1>
+    <HeaderProfile />
+    <HomeCards />
   </default-layout>
 </template>
 
 <script>
-import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
+import HeaderProfile from "@/components/HeaderProfile.vue";
+import HomeCards from "@/components/HomeCards.vue";
 export default {
   name: "HomeView",
-  components:{
-    DefaultLayout
-  }
+  components: {
+    DefaultLayout,
+    HeaderProfile,
+    HomeCards,
+  },
 };
 </script>
 

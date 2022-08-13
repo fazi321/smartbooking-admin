@@ -21,7 +21,8 @@ export default {
   display: flex;
 }
 .pages-slide{
-  background: pink;
+  background: #F4F7FA;
   width: 80%;
+  padding:20px;
 }
 </style>
