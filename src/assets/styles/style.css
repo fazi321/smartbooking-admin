@@ -65,7 +65,7 @@ header.active .container .nav ul li a {
 }
 
 .hero-slider .carousel__pagination-button {
-  background-color: #febb12;
+  background-color: #FEBB12;
   opacity: 0.4;
   width: 15px;
   height: 15px;
@@ -73,7 +73,7 @@ header.active .container .nav ul li a {
 }
 
 .hero-slider .carousel__pagination-button--active {
-  background-color: #febb12;
+  background-color: #FEBB12;
   opacity: unset;
 }
 
@@ -82,7 +82,7 @@ header.active .container .nav ul li a {
   background-color: #fff;
   width: 50px;
   height: 40px;
-  box-shadow: 0px 0px 10px #0000001a;
+  box-shadow: 0px 0px 10px #0000001A;
   border-radius: 6px;
   opacity: 1;
 }
@@ -92,9 +92,8 @@ header.active .container .nav ul li a {
   width: 25px;
   height: 35px;
 }
-.hero-slider .carousel__prev,
-.hero-slider .carousel__next {
-  top: 40%;
+.hero-slider .carousel__prev, .hero-slider .carousel__next{
+  top:40%;
 }
 .smart-title {
   width: 100%;
@@ -124,22 +123,22 @@ header.active .container .nav ul li a {
   border-radius: 50%;
   cursor: pointer;
 }
-.service-pagination .page-item:last-child {
+.service-pagination .page-item:last-child{
   display: none;
 }
 .service-pagination .page-item .page-link {
-  border-radius: 11px !important;
-  color: #5372e7;
+  border-radius: 11px!important;
+  color: #5372E7;
 }
 .disabled .page-link {
   color: #eee !important;
 }
-.service-pagination .active .page-link {
+.service-pagination .active .page-link{
   color: #fff !important;
 }
 .active .page-link {
-  background-color: #febb12;
-  color: #000;
+  background-color: #FEBB12;
+  color: #000 ;
 }
 /* Hotel slider  */
 .hotel-slider .carousel__prev,
@@ -149,11 +148,11 @@ header.active .container .nav ul li a {
   width: 40px;
   height: 40px;
 }
-.hotel-slider .carousel__prev {
+.hotel-slider .carousel__prev{
   left: 25px;
   display: none;
 }
-.hotel-slider .carousel__next {
+.hotel-slider .carousel__next{
   right: 20px;
 }
 .hotel-slider .carousel__prev--in-active,
@@ -167,62 +166,48 @@ header.active .container .nav ul li a {
 .carousel__icon {
   fill: #000;
 }
-.date-container .dp__calendar_header_item div {
+.date-container .dp__calendar_header_item div{
   font-weight: 600;
   font-size: 14px;
   line-height: 1.7;
 }
-.date-container .dp__calendar_header_item {
+.date-container .dp__calendar_header_item{
   background: #eee;
 }
 .date-container .dp__calendar_row {
   font-weight: 600;
 }
 .date-container .dp__today {
-  border: 1px solid #febb12;
+  border:1px solid #FEBB12;
 }
-.date-container .dp__active_date {
-  background-color: #febb12;
+.date-container .dp__active_date{
+ background-color: #FEBB12;
 }
-.date-container .dp__relative {
-  border: unset;
+.date-container .dp__relative{
+  border:unset;
 }
-.date-container .dp__cell_inner {
-  margin: 0 8px;
+.date-container .dp__cell_inner{
+  margin:0 8px;
   height: 20px;
   font-size: 12px;
   width: 20px;
 }
 .date-container .dp__month_year_select {
-  width: 100%;
+  width:100%;
   text-transform: uppercase;
   font-weight: 600;
 }
-.date-container .dp__month_year_select:nth-child(3) {
+.date-container .dp__month_year_select:nth-child(3){
+  display:none
+}
+.date-container .dp__calendar_header_separator{
   display: none;
 }
-.date-container .dp__calendar_header_separator {
-  display: none;
-}
-.date-container .dp__calendar_row > div:last-child {
+.date-container .dp__calendar_row >div:last-child{
   color: #ef4056;
 }
-.head h1 {
-  font-size: 14px;
-}
-
-/* otp input setting */
-.form-container .otp-input {
-  width: 40px;
-  margin-right: 20px;
-  box-shadow: 0px 0px 8px 2px #e9e8e8;
-  outline: none;
-  border: none;
-  height: 40px;
-  text-align: center;
-}
-.swal2-popup{
-  border:1px solid #febb12!important;
+.head h1{
+  font-size:14px;
 }
 /* reponsive start */
 @media only screen and (max-width: 1199px) {

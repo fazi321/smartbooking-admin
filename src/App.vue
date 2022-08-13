@@ -1,20 +1,6 @@
 <template>
   <router-view />
 </template>
-<script>
-import Cookies from "js-cookie";
-export default {
-  beforeCreate() {
-    let auth = Cookies.get("Authorization");
-    if (auth) {
-      this.$axios.defaults.headers.common["Authorization"] = auth;
-      this.$store.dispatch("auth/profile");
-    } else {
-      this.$axios.defaults.headers.common["Authorization"] = "";
-    }
-  },
-};
-</script>
 
 <style>
 #app {

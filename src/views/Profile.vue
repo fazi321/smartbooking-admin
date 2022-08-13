@@ -39,14 +39,8 @@ import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
 export default {
   name: "HotelDetailView",
   components: {
-    DefaultLayout,
-  },
-  mounted() {
-    const user = this.$store.state.auth.user;
-    if (!user.firstName) {
-      this.$store.dispatch("auth/profile");
-    }
-  },
+    DefaultLayout
+  }
 };
 </script>
 <style scoped>

@@ -71,29 +71,16 @@
         </router-link>
       </li>
       <li>
-        <p @click="logOut">
+        <router-link to="#demo">
           <span>Logout</span>
-        </p>
+        </router-link>
       </li>
     </ul>
   </section>
 </template>
 
 <script>
-export default {
-  methods: {
-    logOut() {
-      this.$store.dispatch("auth/logOut");
-      this.$axios.defaults.headers.common["Authorization"] = "";
-      this.$swal({
-        icon: "success",
-        title: "Success!",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped>
@@ -111,14 +98,12 @@ export default {
   min-height: 503px;
 }
 
-.dropdown ul li a,
-.dropdown ul li p {
+.dropdown ul li a {
   color: #828282;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   padding: 10px 0;
-  cursor: pointer;
 }
 .dropdown ul li a span:nth-child(2) {
   color: #febb12;
