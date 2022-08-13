@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+/* global css */
+
+/* common css */
+.container {
+  width: 90%;
+  max-width: 1266px;
+  margin: 0 auto;
+}
+
+.btn {
+  letter-spacing: 0.63px;
+  text-align: center;
+  padding: 15px 20px;
+  border-radius: 5px;
+  display: block;
+  cursor: pointer;
+}
+
+header.active .container .nav ul li a {
+  color: #707070;
+}
+
+.header.active .register a {
+  color: #707070;
+}
+
+/* hero slider  */
+.hero-slider .carousel__pagination {
+  margin: 0;
+  top: -110px;
+  position: relative;
+}
+
+.hero-slider .carousel__pagination-button {
+  background-color: #febb12;
+  opacity: 0.4;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.hero-slider .carousel__pagination-button--active {
+  background-color: #febb12;
+  opacity: unset;
+}
+
+.hero-slider .carousel__prev,
+.hero-slider .carousel__next {
+  background-color: #fff;
+  width: 50px;
+  height: 40px;
+  box-shadow: 0px 0px 10px #0000001a;
+  border-radius: 6px;
+  opacity: 1;
+}
+
+.hero-slider .carousel__prev img,
+.hero-slider .carousel__next img {
+  width: 25px;
+  height: 35px;
+}
+.hero-slider .carousel__prev,
+.hero-slider .carousel__next {
+  top: 40%;
+}
+.smart-title {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+.smart-title h1 {
+  font-size: 24px;
+  color: #231f20;
+  opacity: 0.8;
+  letter-spacing: 0.7px;
+}
+.pagination {
+  margin: 50px 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.page-item .page-link {
+  padding: 10px 15px;
+  border: none;
+  margin: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.service-pagination .page-item:last-child {
+  display: none;
+}
+.service-pagination .page-item .page-link {
+  border-radius: 11px !important;
+  color: #5372e7;
+}
+.disabled .page-link {
+  color: #eee !important;
+}
+.service-pagination .active .page-link {
+  color: #fff !important;
+}
+.active .page-link {
+  background-color: #febb12;
+  color: #000;
+}
+/* Hotel slider  */
+.hotel-slider .carousel__prev,
+.hotel-slider .carousel__next {
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 40px;
+  height: 40px;
+}
+.hotel-slider .carousel__prev {
+  left: 25px;
+  display: none;
+}
+.hotel-slider .carousel__next {
+  right: 20px;
+}
+.hotel-slider .carousel__prev--in-active,
+.hotel-slider .carousel__next--in-active {
+  display: none;
+}
+.hotel-slider .carousel__slide {
+  padding: 0 8px;
+}
+
+.carousel__icon {
+  fill: #000;
+}
+.date-container .dp__calendar_header_item div {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.date-container .dp__calendar_header_item {
+  background: #eee;
+}
+.date-container .dp__calendar_row {
+  font-weight: 600;
+}
+.date-container .dp__today {
+  border: 1px solid #febb12;
+}
+.date-container .dp__active_date {
+  background-color: #febb12;
+}
+.date-container .dp__relative {
+  border: unset;
+}
+.date-container .dp__cell_inner {
+  margin: 0 8px;
+  height: 20px;
+  font-size: 12px;
+  width: 20px;
+}
+.date-container .dp__month_year_select {
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.date-container .dp__month_year_select:nth-child(3) {
+  display: none;
+}
+.date-container .dp__calendar_header_separator {
+  display: none;
+}
+.date-container .dp__calendar_row > div:last-child {
+  color: #ef4056;
+}
+.head h1 {
+  font-size: 14px;
+}
+
+/* otp input setting */
+.form-container .otp-input {
+  width: 40px;
+  margin-right: 20px;
+  box-shadow: 0px 0px 8px 2px #e9e8e8;
+  outline: none;
+  border: none;
+  height: 40px;
+  text-align: center;
+}
+.swal2-popup{
+  border:1px solid #febb12!important;
+}
+/* reponsive start */
+@media only screen and (max-width: 1199px) {
+  .container {
+    width: 100%;
+  }
+
+  header.header .container .nav ul li a {
+    color: #707070;
+  }
+
+  .header.header .register a {
+    color: #707070;
+  }
+}
+
+/* reponsive end */
