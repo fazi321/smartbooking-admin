@@ -1,22 +1,27 @@
 <template>
-  <div>
-    <Header />
-    
-    <slot />
-    <Footer />
-  </div>
+  <section>
+    <div class="container primary-container">
+      <SideBar />
+      <section class="pages-slide">
+        <slot />
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
-import Header from "../header/index.vue";
-import Footer from "../footer/AppFooter.vue";
-
+import SideBar from "../common/SideBar.vue";
 export default {
   name: "DefaultLayout",
-  components: {
-    Header,
-    Footer,
-
-  }
+  components: { SideBar },
 };
 </script>
+<style scoped>
+.primary-container {
+  display: flex;
+}
+.pages-slide{
+  background: pink;
+  width: 80%;
+}
+</style>
