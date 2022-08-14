@@ -2,24 +2,24 @@
   <default-layout>
     <section class="main-wrapper">
       <div class="top-heading">
-        <h2>Vendors</h2>
-        <p>You can see all the vendors here. Also you can add new Vendors.</p>
+        <h2>Hotels</h2>
+        <p>You can see all the hotel bookings here.</p>
       </div>
       <!-- <div class="add-btn">
-        <button @click="VendorModelShow">Add New Deal</button>
-      </div>-->
+        <button @click="DealModelShow">Add New Deal</button>
+      </div> -->
       <div class="service-container">
         <div class="service-detail">
           <table>
             <tr>
-              <th>ID</th>
-              <th>Vendor Name</th>
-              <th>Mobile Number</th>
+              <th>Booking ID</th>
+              <th>Customer Name</th>
+              <th>Mobile</th>
               <th>Email</th>
-              <th>Address</th>
-              <th>Services</th>
-              <th>Commercial ID</th>
-              <th>ID Image</th>
+              <th>Service name</th>
+              <th>Service address</th>
+              <th>Vendor name</th>
+              <th>Check In</th>
               <th>Action</th>
             </tr>
             <tr>
@@ -28,11 +28,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>1</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -43,11 +43,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>2</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -58,11 +58,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>3</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -73,11 +73,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>4</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -88,11 +88,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>5</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -103,11 +103,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>6</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -118,11 +118,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>7</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -133,11 +133,11 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>8</td>
+              <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="bookingModelShow">
                   <button>Action</button>
                 </div>
               </td>
@@ -162,31 +162,31 @@
           </div>
         </div>
       </div>
-      <VendorDetailModel v-if="vendorModel" />
+      <BookingModel v-if="bookingModel" />
     </section>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
-import VendorDetailModel from "@/components/Models/VendorDetailModel.vue";
+import BookingModel from "@/components/Models/BookingModel.vue";
 import Paginate from "vuejs-paginate-next";
 
 export default {
-  name: "VendorsView",
+  name: "DetailsView",
   components: {
     DefaultLayout,
     Paginate,
-    VendorDetailModel
+    BookingModel
   },
   data() {
     return {
-      vendorModel: false
+      bookingModel: false
     };
   },
   methods: {
-    VendorModelShow() {
-      this.vendorModel = !this.vendorModel;
+    bookingModelShow() {
+      this.bookingModel = !this.bookingModel;
     },
     clickCallback(num) {
       this.$refs.slider.slideTo(num);
@@ -249,14 +249,11 @@ export default {
   font-size: 14px;
   font-weight: 600;
   border-bottom: 1px solid #eee;
-  padding: 15px 8px;
+  padding: 15px 5px;
   white-space: nowrap;
 }
-th:first-child{
-  padding: 15px !important;
-}
 .service-detail table td {
-  padding: 15px 8px;
+  padding: 15px 5px;
   text-align: center;
   letter-spacing: 0px;
   color: #000000;
