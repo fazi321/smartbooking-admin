@@ -1,13 +1,13 @@
 <template>
   <section class="graph">
     <div class="content">
-      <h1>Weekly Bookings</h1>
-      <p>Calculated last week</p>
+      <h1>{{data.title.name}}</h1>
+      <p>{{data.title.subTitle}}</p>
     </div>
     <div class="graph-container">
       <div
         class="graph-bar"
-        v-for="(d, i) in data"
+        v-for="(d, i) in data.data"
         :key="i"
         :style="{ height: d.average + '%' }"
       >
