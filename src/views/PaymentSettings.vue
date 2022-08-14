@@ -2,8 +2,8 @@
   <default-layout>
     <section class="main-wrapper">
       <div class="top-heading">
-        <h2>Vendors</h2>
-        <p>You can see all the vendors here. Also you can add new Vendors.</p>
+        <h2>Payment Settings</h2>
+        <p>You can see all the payment settings here.</p>
       </div>
       <!-- <div class="add-btn">
         <button @click="VendorModelShow">Add New Deal</button>
@@ -12,23 +12,17 @@
         <div class="service-detail">
           <table>
             <tr>
-              <th>ID</th>
-              <th>Vendor Name</th>
-              <th>Mobile Number</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Services</th>
-              <th>Commercial ID</th>
-              <th>ID Image</th>
+              <th>Icon</th>
+              <th>Gateway</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
             <tr>
-              <td>01</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>1</td>
+              <td class="payment">
+                <div class="payment-icon">
+                  <img src="../assets/images/master.png" alt />
+                </div>
+              </td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
@@ -38,12 +32,11 @@
               </td>
             </tr>
             <tr>
-              <td>02</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>2</td>
+              <td class="payment">
+                <div class="payment-icon">
+                  <img src="../assets/images/visa.svg" alt />
+                </div>
+              </td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
@@ -53,12 +46,11 @@
               </td>
             </tr>
             <tr>
-              <td>03</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>3</td>
+              <td class="payment">
+                <div class="payment-icon">
+                  <img src="../assets/images/pay.svg" alt />
+                </div>
+              </td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
@@ -68,72 +60,11 @@
               </td>
             </tr>
             <tr>
-              <td>04</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>4</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" @click="VendorModelShow">
-                  <button>Action</button>
+              <td class="payment">
+                <div class="payment-icon tamara" >
+                  <img src="../assets/images/tamara.png" alt />
                 </div>
               </td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>5</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" @click="VendorModelShow">
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>6</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" @click="VendorModelShow">
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>7</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" @click="VendorModelShow">
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>8</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>
@@ -143,7 +74,7 @@
               </td>
             </tr>
           </table>
-          <div class="bottom-container">
+          <!-- <div class="bottom-container">
             <div>
               <p>Showing 1 to 10 of 30 entries</p>
             </div>
@@ -159,34 +90,33 @@
                 :page-class="'page-item'"
               ></paginate>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
-      <VendorDetailModel v-if="vendorModel" />
+      <PaymentSettingModel v-if="settingModel" />
     </section>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
-import VendorDetailModel from "@/components/Models/VendorDetailModel.vue";
-import Paginate from "vuejs-paginate-next";
+import PaymentSettingModel from "@/components/Models/PaymentSettingModel.vue";
+// import Paginate from "vuejs-paginate-next";
 
 export default {
-  name: "VendorsView",
+  name: "PaymentSettingView",
   components: {
     DefaultLayout,
-    Paginate,
-    VendorDetailModel
+    PaymentSettingModel
   },
   data() {
     return {
-      vendorModel: false
+      settingModel: false
     };
   },
   methods: {
     VendorModelShow() {
-      this.vendorModel = !this.vendorModel;
+      this.settingModel = !this.settingModel;
     },
     clickCallback(num) {
       this.$refs.slider.slideTo(num);
@@ -230,15 +160,17 @@ export default {
   cursor: pointer;
 }
 .service-detail {
-  padding: 20px 0 40px 0;
-}
-.service-detail table {
-  border-collapse: collapse;
-  width: 100%;
+  margin: 20px 0;
   box-shadow: 0px 0px 39px #00000012;
   border-radius: 17px;
   opacity: 1;
   background: #fff;
+  padding-bottom: 100px;
+}
+.service-detail table {
+  border-collapse: collapse;
+  width: 100%;
+  
 }
 
 .service-detail table th {
@@ -252,11 +184,11 @@ export default {
   padding: 15px 8px;
   white-space: nowrap;
 }
-th:first-child{
+th:first-child {
   padding: 15px !important;
 }
 .service-detail table td {
-  padding: 15px 8px;
+  padding: 12px 8px;
   text-align: center;
   letter-spacing: 0px;
   color: #000000;
@@ -280,7 +212,7 @@ th:first-child{
   outline: none;
   border-radius: 7px;
   opacity: 1;
-  background: #FEBB12;
+  background: #febb12;
   text-align: center;
   letter-spacing: 0px;
   color: #ffffff;
@@ -298,5 +230,17 @@ th:first-child{
   color: #000000;
   opacity: 0.7;
   font-size: 12px;
+}
+.payment {
+  display: flex;
+  justify-content: center;
+}
+.tamara{
+  width: 60px!important;
+  height: 20px!important;
+}
+.payment-icon {
+  width: 50px;
+  height: 30px;
 }
 </style>

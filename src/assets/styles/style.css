@@ -40,9 +40,11 @@ img {
   margin: 0 auto;
   height: 100vh;
 }
+
 ul {
   padding: unset;
 }
+
 .btn {
   letter-spacing: 0.63px;
   text-align: center;
@@ -51,4 +53,50 @@ ul {
   display: block;
   cursor: pointer;
 }
+
+.pagination {
+  margin: 50px 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.page-item .page-link {
+  padding: 10px 15px;
+  border: none;
+  margin: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.service-pagination .page-item:last-child {
+  display: none;
+}
+
+.service-pagination .page-item .page-link {
+  border-radius: 11px !important;
+  color: #5372E7;
+}
+
+.disabled .page-link {
+  color: #eee ;
+}
+
+.service-pagination .disabled .page-link {
+  color: #000000!important;
+  opacity: 0.7;
+  font-weight: normal;
+}
+
+.service-pagination .active .page-link {
+  color: #fff !important;
+}
+
+.active .page-link {
+  background-color: #FEBB12;
+  color: #000;
+}
+
 /* reponsive end */

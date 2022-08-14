@@ -1,6 +1,6 @@
 <template>
   <section class="logo">
-    <img src="../../assets/images/logo.png" alt="" />
+    <img src="../../assets/images/logo.svg" alt="" />
   </section>
 </template>
 

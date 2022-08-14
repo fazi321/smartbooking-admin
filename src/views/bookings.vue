@@ -2,103 +2,94 @@
   <default-layout>
     <section class="main-wrapper">
       <div class="top-heading">
-        <h2>Categories</h2>
-        <p>You can see all the categories here. Also you can add new categories.</p>
+        <h2>Bookings</h2>
+        <p>You can see all the bookings here.</p>
       </div>
-      <div class="add-btn">
+      <!-- <div class="add-btn">
         <button @click="CategoryeModelShow">Add New Category</button>
-      </div>
+      </div>-->
       <div class="category-main">
-        <div class="category-card">
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/hotel-icon.png" />
           </div>
           <h6>Hotels</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/apartment.svg" />
           </div>
           <h6>Appartments</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/resort.svg" />
           </div>
           <h6>Resorts</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/forms.svg" />
           </div>
           <h6>Farms</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/lounges.svg" />
           </div>
           <h6>Lounges</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/staduim.svg" />
           </div>
           <h6>Staduims</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/chalets.svg" />
           </div>
           <h6>Chalets</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/camps.svg" />
           </div>
           <h6>Camps</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
-        <div class="category-card">
+        </router-link>
+        <router-link to="/booking-details" class="category-card">
           <div class="icon">
             <img src="../assets/images/hall.svg" />
           </div>
           <h6>Wedding Halls</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <h3>2447</h3>
           </div>
-        </div>
+        </router-link>
       </div>
       <CategoriesModel v-if="categoryModel" />
     </section>
@@ -110,7 +101,7 @@ import CategoriesModel from "@/components/Models/ModelCategories.vue";
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
 
 export default {
-  name: "CatView",
+  name: "BookingView",
   components: {
     DefaultLayout,
     CategoriesModel
@@ -189,8 +180,8 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.category-card .icon .hotel-icon{
-  width: 45px!important;
+.category-card .icon .hotel-icon {
+  width: 45px !important;
 }
 .category-card .icon img {
   width: 60px;
@@ -208,8 +199,11 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.bottom-icons img {
-  width: 50px;
-  margin: 0 5px;
+.bottom-icons h3 {
+  letter-spacing: 0px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 0;
 }
 </style>
