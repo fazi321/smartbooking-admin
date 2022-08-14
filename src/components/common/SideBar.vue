@@ -1,12 +1,12 @@
 <template>
-  <div class="side-bar">
+  <section class="side-bar">
     <section class="logo-container">
       <Logo />
     </section>
     <section>
       <Menu />
     </section>
-  </div>
+  </section>
 </template>
 
 <script>

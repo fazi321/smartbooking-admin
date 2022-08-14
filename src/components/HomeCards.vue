@@ -47,7 +47,7 @@ export default {};
 .cards-container {
   display: flex;
   flex-wrap: wrap;
-  padding: 20px 0;
+  padding: 20px 0 6px 0;
 }
 .cards-container .card {
   text-align: center;
