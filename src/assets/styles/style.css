@@ -35,8 +35,8 @@ img {
 
 /* common css */
 .container {
-  width: 90%;
-  max-width: 1266px;
+  /* width: 90%;
+  max-width: 1266px; */
   margin: 0 auto;
   height: 100vh;
 }

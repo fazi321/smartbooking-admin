@@ -218,12 +218,13 @@ export default {
   color:#fff;
 }
 .menu ul li .svg {
-  width: 20px;
+  width: 18px;
   margin: 0 12px 0 14px;
   display: flex;
 }
 .menu ul li .content {
   position: relative;
   top: 2px;
+  font-size: 14px;
 }
 </style>

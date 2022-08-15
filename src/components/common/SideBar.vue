@@ -1,11 +1,13 @@
 <template>
   <section class="side-bar">
-    <section class="logo-container">
-      <Logo />
-    </section>
-    <section>
-      <Menu />
-    </section>
+    <div class="inner-side">
+      <section class="logo-container">
+        <Logo />
+      </section>
+      <section>
+        <Menu />
+      </section>
+    </div>
   </section>
 </template>
 
@@ -24,11 +26,15 @@ export default {
 .side-bar {
   width: 20%;
   background: #fff;
-  padding:10px;
+  padding: 10px;
 }
 .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.side-bar .inner-side{
+  position:fixed;
+  width:20%;
 }
 </style>
