@@ -12,10 +12,11 @@ import PaymentMethod from "../views/PaymentMethod.vue";
 import PaymentSettings from "../views/PaymentSettings.vue";
 import ApiSettings from "../views/ApiSettings.vue";
 import BookingDetails from "../views/BookingDetails.vue";
+import Login from "../views/Login.vue";
 
 const routes = [
   {
-    path: "/dashboard",
+    path: "/",
     name: "dashboard",
     component: Home,
   },
@@ -79,7 +80,11 @@ const routes = [
     name: "payment-method",
     component: PaymentMethod,
   },
-  
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
 ];
 
 const router = createRouter({

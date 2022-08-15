@@ -1,6 +1,15 @@
 <template>
   <router-view />
 </template>
+<script>
+export default {
+  mounted() {
+    if (localStorage.user == "false" || !localStorage.user) {
+      this.$router.push("/login");
+    }
+  },
+};
+</script>
 
 <style>
 #app {

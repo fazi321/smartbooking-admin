@@ -1,8 +1,8 @@
 <template>
   <div class="menu">
     <ul>
-      <li :class="{ active: $route.path == '/dashboard' && !isSelectedChilds }">
-        <router-link to="/dashboard">
+      <li :class="{ active: $route.path == '/' && !isSelectedChilds }">
+        <router-link to="/">
           <div class="list">
             <div class="svg">
               <img
@@ -150,7 +150,8 @@
       <li
         @click="slectedChild('st')"
         :class="{
-          active: isSelectedChilds == 'st' || $route.path.slice(0, 9) == '/settings',
+          active:
+            isSelectedChilds == 'st' || $route.path.slice(0, 9) == '/settings',
         }"
       >
         <div class="list">
@@ -166,10 +167,14 @@
         </div>
       </li>
       <!-- Settings childs -->
-      <div v-if="isSelectedChilds == 'st' || $route.path.slice(0,9) == '/settings'">
+      <div
+        v-if="
+          isSelectedChilds == 'st' || $route.path.slice(0, 9) == '/settings'
+        "
+      >
         <li
           :class="{
-            activee:  $route.path == '/settings/api-settings',
+            activee: $route.path == '/settings/api-settings',
           }"
         >
           <router-link to="/settings/api-settings">
@@ -183,7 +188,8 @@
         </li>
         <li
           :class="{
-            activee: $route.path == '/settings/notifications' && !isSelectedChilds,
+            activee:
+              $route.path == '/settings/notifications' && !isSelectedChilds,
           }"
         >
           <router-link to="/settings/notifications">
@@ -196,7 +202,9 @@
           </router-link>
         </li>
         <li
-          :class="{ activee: $route.path == '/settings/sms' && !isSelectedChilds }"
+          :class="{
+            activee: $route.path == '/settings/sms' && !isSelectedChilds,
+          }"
         >
           <router-link to="/settings/sms">
             <div class="list">
@@ -241,7 +249,7 @@
       <!-- Settings childs end -->
     </ul>
     <ul class="logout-container">
-      <li>
+      <li @click="logOut">
         <div class="list">
           <div class="svg">
             <img src="../../assets/images/logout.svg" alt="" />
@@ -265,6 +273,10 @@ export default {
   methods: {
     slectedChild(val) {
       this.isSelectedChilds = val;
+    },
+    logOut() {
+      localStorage.user = false;
+      this.$router.push("/login");
     },
   },
 };
