@@ -120,7 +120,6 @@ export default {
 </script>
 
 <style scoped>
-
 .top-heading {
   line-height: 1.8;
 }
@@ -159,14 +158,15 @@ export default {
 }
 .category-card {
   width: calc(16% - 2px);
-  margin-right: 18px;
-  margin-bottom: 18px;
+  margin-right: 23px;
+  margin-bottom: 20px;
   background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
   cursor: pointer;
+  border-radius: 5px;
 }
 .category-card .icon {
   width: 80px;
@@ -179,8 +179,8 @@ export default {
 }
 
 .category-card .icon img {
- width: 100%;
- height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .category-card h6 {
   letter-spacing: 0px;

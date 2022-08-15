@@ -66,8 +66,8 @@ export default {
   top: 26px;
   position: absolute;
   right: 20px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   z-index: 99;
 }

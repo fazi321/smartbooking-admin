@@ -122,7 +122,7 @@ export default {
   font-size: 12px;
 }
 .add-btn {
-  width: 98%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
 }
@@ -139,7 +139,7 @@ export default {
 .service-detail {
   margin: 20px 0;
   box-shadow: 0px 0px 39px #00000012;
-  border-radius: 17px;
+  border-radius: 11px;
   opacity: 1;
   background: #fff;
   padding-bottom: 100px;
