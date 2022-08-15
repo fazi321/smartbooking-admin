@@ -9,7 +9,7 @@
         <button @click="CategoryeModelShow">Add New Category</button>
       </div>-->
       <div class="category-main">
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/hotels" class="category-card">
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/hotel-icon.png" />
           </div>
@@ -18,7 +18,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/appartments" class="category-card">
           <div class="icon">
             <img src="../assets/images/apartment.svg" />
           </div>
@@ -27,7 +27,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/resorts" class="category-card">
           <div class="icon">
             <img src="../assets/images/resort.svg" />
           </div>
@@ -36,7 +36,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/farms" class="category-card">
           <div class="icon">
             <img src="../assets/images/forms.svg" />
           </div>
@@ -45,7 +45,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/lounges" class="category-card">
           <div class="icon">
             <img src="../assets/images/lounges.svg" />
           </div>
@@ -54,7 +54,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/staduims" class="category-card">
           <div class="icon">
             <img src="../assets/images/staduim.svg" />
           </div>
@@ -63,7 +63,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/chalets" class="category-card">
           <div class="icon">
             <img src="../assets/images/chalets.svg" />
           </div>
@@ -72,7 +72,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/camps" class="category-card">
           <div class="icon">
             <img src="../assets/images/camps.svg" />
           </div>
@@ -81,7 +81,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="/booking/wedding-halls" class="category-card">
           <div class="icon">
             <img src="../assets/images/hall.svg" />
           </div>
@@ -104,18 +104,18 @@ export default {
   name: "BookingView",
   components: {
     DefaultLayout,
-    CategoriesModel
+    CategoriesModel,
   },
   data() {
     return {
-      categoryModel: false
+      categoryModel: false,
     };
   },
   methods: {
     CategoryeModelShow() {
       this.categoryModel = !this.categoryModel;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -166,7 +166,7 @@ export default {
   align-items: center;
   padding: 10px;
   cursor: pointer;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 .category-card .icon {
   width: 100px;

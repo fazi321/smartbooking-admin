@@ -5,8 +5,16 @@
         <router-link to="/dashboard">
           <div class="list">
             <div class="svg">
-              <img class="black" src="../../assets/images/dashboard.svg" alt="" />
-               <img class="white" src="../../assets/images/white-dashboard.svg" alt="" />
+              <img
+                class="black"
+                src="../../assets/images/dashboard.svg"
+                alt=""
+              />
+              <img
+                class="white"
+                src="../../assets/images/white-dashboard.svg"
+                alt=""
+              />
             </div>
             <div class="content">Dashboard</div>
           </div>
@@ -18,21 +26,31 @@
         <router-link to="/categories">
           <div class="list">
             <div class="svg">
-              <img class="black" src="../../assets/images/category.svg" alt="" />
-              <img class="white" src="../../assets/images/white-category.svg" alt="" />
+              <img
+                class="black"
+                src="../../assets/images/category.svg"
+                alt=""
+              />
+              <img
+                class="white"
+                src="../../assets/images/white-category.svg"
+                alt=""
+              />
             </div>
             <div class="content">Categories</div>
           </div>
         </router-link>
       </li>
-       <li
-        :class="{ active: $route.path == '/deals' && !isSelectedChilds }"
-      >
+      <li :class="{ active: $route.path == '/deals' && !isSelectedChilds }">
         <router-link to="/deals">
           <div class="list">
             <div class="svg">
               <img class="black" src="../../assets/images/deal.svg" alt="" />
-              <img class="white" src="../../assets/images/white-deal.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-deal.svg"
+                alt=""
+              />
             </div>
             <div class="content">Deals</div>
           </div>
@@ -47,7 +65,11 @@
         <div class="list">
           <div class="svg">
             <img class="black" src="../../assets/images/vendor.svg" alt="" />
-            <img class="white" src="../../assets/images/white-vendor.svg" alt="" />
+            <img
+              class="white"
+              src="../../assets/images/white-vendor.svg"
+              alt=""
+            />
           </div>
           <div class="content">Vendors</div>
         </div>
@@ -76,63 +98,81 @@
         </li>
       </div>
       <!-- vendor childs end -->
-      <li
-        :class="{ active: $route.path == '/bookings' && !isSelectedChilds }"
-      >
+      <li :class="{ active: $route.path == '/bookings' && !isSelectedChilds }">
         <router-link to="/bookings">
           <div class="list">
             <div class="svg">
               <img class="black" src="../../assets/images/booking.svg" alt="" />
-              <img class="white" src="../../assets/images/white-booking.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-booking.svg"
+                alt=""
+              />
             </div>
             <div class="content">Bookings</div>
           </div>
         </router-link>
       </li>
-      <li
-        :class="{ active: $route.path == '/services' && !isSelectedChilds }"
-      >
+      <li :class="{ active: $route.path == '/services' && !isSelectedChilds }">
         <router-link to="/services">
           <div class="list">
             <div class="svg">
-              <img class="black" src="../../assets/images/services.svg" alt="" />
-              <img class="white" src="../../assets/images/white-service.svg" alt="" />
+              <img
+                class="black"
+                src="../../assets/images/services.svg"
+                alt=""
+              />
+              <img
+                class="white"
+                src="../../assets/images/white-service.svg"
+                alt=""
+              />
             </div>
             <div class="content">Services</div>
           </div>
         </router-link>
       </li>
-      <li
-        :class="{ active: $route.path == '/cities' && !isSelectedChilds }"
-      >
+      <li :class="{ active: $route.path == '/cities' && !isSelectedChilds }">
         <router-link to="/cities">
           <div class="list">
             <div class="svg">
               <img class="black" src="../../assets/images/city.svg" alt="" />
-              <img class="white" src="../../assets/images/white-city.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-city.svg"
+                alt=""
+              />
             </div>
             <div class="content">Cities</div>
           </div>
         </router-link>
       </li>
       <li
-        @click="selectedSettingChild('vn')"
+        @click="slectedChild('st')"
         :class="{
-          active: isSelectedSettingChilds == 'vn',
+          active: isSelectedChilds == 'st' || $route.path.slice(0, 9) == '/settings',
         }"
       >
         <div class="list">
           <div class="svg">
             <img class="black" src="../../assets/images/settings.svg" alt="" />
-            <img class="white" src="../../assets/images/white-setting.svg" alt="" />
+            <img
+              class="white"
+              src="../../assets/images/white-setting.svg"
+              alt=""
+            />
           </div>
           <div class="content">Settings</div>
         </div>
       </li>
       <!-- Settings childs -->
-      <div v-if="isSelectedSettingChilds == 'vn' || $route.query.category">
-        <li :class="{ active: $route.path == '/api-settings'  && !isSelectedSettingChilds }">
-          <router-link to="/api-settings">
+      <div v-if="isSelectedChilds == 'st' || $route.path.slice(0,9) == '/settings'">
+        <li
+          :class="{
+            activee:  $route.path == '/settings/api-settings',
+          }"
+        >
+          <router-link to="/settings/api-settings">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -141,8 +181,12 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path == '/notifications' && !isSelectedSettingChilds }">
-          <router-link to="/notifications">
+        <li
+          :class="{
+            activee: $route.path == '/settings/notifications' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/settings/notifications">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -151,8 +195,10 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path == '/sms' && !isSelectedSettingChilds }">
-          <router-link to="/sms">
+        <li
+          :class="{ activee: $route.path == '/settings/sms' && !isSelectedChilds }"
+        >
+          <router-link to="/settings/sms">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -161,8 +207,13 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path == '/payment-setting' && !isSelectedSettingChilds}">
-          <router-link to="/payment-setting">
+        <li
+          :class="{
+            activee:
+              $route.path == '/settings/payment-setting' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/settings/payment-setting">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -171,8 +222,13 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ active: $route.path == '/payment-method' && !isSelectedSettingChilds }">
-          <router-link to="/payment-method">
+        <li
+          :class="{
+            activee:
+              $route.path == '/settings/payment-method' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/settings/payment-method">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -186,7 +242,7 @@
     </ul>
     <ul class="logout-container">
       <li>
-         <div class="list">
+        <div class="list">
           <div class="svg">
             <img src="../../assets/images/logout.svg" alt="" />
           </div>
@@ -203,16 +259,12 @@ export default {
   data() {
     return {
       isSelectedChilds: "",
-      isSelectedSettingChilds: "",
       toggle: false,
     };
   },
   methods: {
     slectedChild(val) {
       this.isSelectedChilds = val;
-    },
-    selectedSettingChild(val) {
-      this.isSelectedSettingChilds = val;
     },
   },
 };
@@ -233,35 +285,35 @@ export default {
 }
 .menu ul li.active .list {
   background-color: #febb12;
-  color:#fff;
+  color: #fff;
 }
 .menu ul li.activee .list {
   background-color: #fecb12;
-  color:#fff;
+  color: #fff;
 }
 .menu ul li .svg {
   width: 18px;
   margin: 0 12px 0 14px;
   display: flex;
 }
-.menu ul li .svg .black{
+.menu ul li .svg .black {
   display: block;
 }
 .menu ul li.active .black {
- display: none;
+  display: none;
 }
-.menu ul li .svg .white{
+.menu ul li .svg .white {
   display: none;
 }
 .menu ul li.active .white {
- display: block;
+  display: block;
 }
 .menu ul li .content {
   position: relative;
   top: 2px;
   font-size: 14px;
 }
-.logout-container{
+.logout-container {
   height: 200px;
   display: flex;
   align-items: flex-end;

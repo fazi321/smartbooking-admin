@@ -11,7 +11,6 @@ import Cities from "../views/Cities.vue";
 import PaymentMethod from "../views/PaymentMethod.vue";
 import PaymentSettings from "../views/PaymentSettings.vue";
 import ApiSettings from "../views/ApiSettings.vue";
-import Settings from "../views/Settings.vue";
 import BookingDetails from "../views/BookingDetails.vue";
 
 const routes = [
@@ -31,7 +30,7 @@ const routes = [
     component: Vendors,
   },
   {
-    path: "/api-settings",
+    path: "/settings/api-settings",
     name: "apiSettings",
     component: ApiSettings,
   },
@@ -41,7 +40,7 @@ const routes = [
     component: Booking,
   },
   {
-    path: "/booking-details",
+    path: "/booking/:cat",
     name: "bookingDetails",
     component: BookingDetails,
   },
@@ -61,27 +60,22 @@ const routes = [
     component: Services,
   },
   {
-    path: "/notifications",
+    path: "/settings/notifications",
     name: "notifications",
     component: Notifications,
   },
   {
-    path: "/sms",
+    path: "/settings/sms",
     name: "sms",
     component: SMS,
   },
   {
-    path: "/settings",
-    name: "settings",
-    component: Settings,
-  },
-  {
-    path: "/payment-setting",
+    path: "/settings/payment-setting",
     name: "payment-setting",
     component: PaymentSettings,
   },
   {
-    path: "/payment-method",
+    path: "/settings/payment-method",
     name: "payment-method",
     component: PaymentMethod,
   },

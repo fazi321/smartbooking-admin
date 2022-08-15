@@ -2,8 +2,8 @@
   <default-layout>
     <section class="main-wrapper">
       <div class="top-heading">
-        <h2>Hotels</h2>
-        <p>You can see all the hotel bookings here.</p>
+        <h2>{{ $route.params.cat }}</h2>
+        <p>You can see all the {{ $route.params.cat }} bookings here.</p>
       </div>
       <!-- <div class="add-btn">
         <button @click="DealModelShow">Add New Deal</button>
@@ -177,11 +177,11 @@ export default {
   components: {
     DefaultLayout,
     Paginate,
-    BookingModel
+    BookingModel,
   },
   data() {
     return {
-      bookingModel: false
+      bookingModel: false,
     };
   },
   methods: {
@@ -190,12 +190,11 @@ export default {
     },
     clickCallback(num) {
       this.$refs.slider.slideTo(num);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
-
 .top-heading {
   line-height: 1.8;
 }
@@ -204,6 +203,7 @@ export default {
   letter-spacing: 0px;
   color: #000000;
   font-size: 18px;
+  text-transform: capitalize;
 }
 .top-heading p {
   text-align: left;
@@ -274,7 +274,7 @@ export default {
   outline: none;
   border-radius: 7px;
   opacity: 1;
-  background: #FEBB12;
+  background: #febb12;
   text-align: center;
   letter-spacing: 0px;
   color: #ffffff;
