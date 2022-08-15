@@ -225,7 +225,7 @@ img {
   padding: 16px 30px;
   border-radius: 50px;
   outline: none;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   box-shadow: 0px 2px 4px 1px #c9c9c9a6;
   cursor: pointer;
 }
