@@ -17,8 +17,8 @@ import Menu from "./Menu.vue";
 export default {
   components: {
     Logo,
-    Menu,
-  },
+    Menu
+  }
 };
 </script>
 
@@ -33,8 +33,22 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.side-bar .inner-side{
-  position:fixed;
-  width:20%;
+.side-bar .inner-side {
+  position: fixed;
+  width: 20%;
+  overflow-y: scroll;
+  bottom: 0;
+  top: 0;
 }
+.inner-side::-webkit-scrollbar {
+  width: 2px;
+}
+
+.inner-side::-webkit-scrollbar-track {
+  background: transparent;
+}
+.inner-side::-webkit-scrollbar-thumb {
+  background-color: transparent ;
+}
+
 </style>

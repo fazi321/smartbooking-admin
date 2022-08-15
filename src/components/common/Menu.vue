@@ -5,7 +5,8 @@
         <router-link to="/dashboard">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/dashboard.svg" alt="" />
+              <img class="black" src="../../assets/images/dashboard.svg" alt="" />
+               <img class="white" src="../../assets/images/white-dashboard.svg" alt="" />
             </div>
             <div class="content">Dashboard</div>
           </div>
@@ -17,7 +18,8 @@
         <router-link to="/categories">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/category.svg" alt="" />
+              <img class="black" src="../../assets/images/category.svg" alt="" />
+              <img class="white" src="../../assets/images/white-category.svg" alt="" />
             </div>
             <div class="content">Categories</div>
           </div>
@@ -29,7 +31,8 @@
         <router-link to="/deals">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/deal.svg" alt="" />
+              <img class="black" src="../../assets/images/deal.svg" alt="" />
+              <img class="white" src="../../assets/images/white-deal.svg" alt="" />
             </div>
             <div class="content">Deals</div>
           </div>
@@ -43,7 +46,8 @@
       >
         <div class="list">
           <div class="svg">
-            <img src="../../assets/images/vendor.svg" alt="" />
+            <img class="black" src="../../assets/images/vendor.svg" alt="" />
+            <img class="white" src="../../assets/images/white-vendor.svg" alt="" />
           </div>
           <div class="content">Vendors</div>
         </div>
@@ -78,7 +82,8 @@
         <router-link to="/bookings">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/booking.svg" alt="" />
+              <img class="black" src="../../assets/images/booking.svg" alt="" />
+              <img class="white" src="../../assets/images/white-booking.svg" alt="" />
             </div>
             <div class="content">Bookings</div>
           </div>
@@ -90,7 +95,8 @@
         <router-link to="/services">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/services.svg" alt="" />
+              <img class="black" src="../../assets/images/services.svg" alt="" />
+              <img class="white" src="../../assets/images/white-service.svg" alt="" />
             </div>
             <div class="content">Services</div>
           </div>
@@ -102,28 +108,30 @@
         <router-link to="/cities">
           <div class="list">
             <div class="svg">
-              <img src="../../assets/images/city.svg" alt="" />
+              <img class="black" src="../../assets/images/city.svg" alt="" />
+              <img class="white" src="../../assets/images/white-city.svg" alt="" />
             </div>
             <div class="content">Cities</div>
           </div>
         </router-link>
       </li>
       <li
-        @click="slectedChild('vn')"
+        @click="selectedSettingChild('vn')"
         :class="{
-          active: isSelectedChilds == 'vn',
+          active: isSelectedSettingChilds == 'vn',
         }"
       >
         <div class="list">
           <div class="svg">
-            <img src="../../assets/images/settings.svg" alt="" />
+            <img class="black" src="../../assets/images/settings.svg" alt="" />
+            <img class="white" src="../../assets/images/white-setting.svg" alt="" />
           </div>
           <div class="content">Settings</div>
         </div>
       </li>
       <!-- Settings childs -->
-      <div v-if="isSelectedChilds == 'vn' || $route.query.category">
-        <li :class="{ activee: $route.query.category == 'api-settings' }">
+      <div v-if="isSelectedSettingChilds == 'vn' || $route.query.category">
+        <li :class="{ active: $route.path == '/api-settings'  && !isSelectedSettingChilds }">
           <router-link to="/api-settings">
             <div class="list">
               <div class="svg">
@@ -133,7 +141,7 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ activee: $route.query.category == 'notifications' }">
+        <li :class="{ active: $route.path == '/notifications' && !isSelectedSettingChilds }">
           <router-link to="/notifications">
             <div class="list">
               <div class="svg">
@@ -143,7 +151,7 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ activee: $route.query.category == 'sms' }">
+        <li :class="{ active: $route.path == '/sms' && !isSelectedSettingChilds }">
           <router-link to="/sms">
             <div class="list">
               <div class="svg">
@@ -153,7 +161,7 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ activee: $route.query.category == 'payment-setting' }">
+        <li :class="{ active: $route.path == '/payment-setting' && !isSelectedSettingChilds}">
           <router-link to="/payment-setting">
             <div class="list">
               <div class="svg">
@@ -163,7 +171,7 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ activee: $route.query.category == 'payment-method' }">
+        <li :class="{ active: $route.path == '/payment-method' && !isSelectedSettingChilds }">
           <router-link to="/payment-method">
             <div class="list">
               <div class="svg">
@@ -176,6 +184,16 @@
       </div>
       <!-- Settings childs end -->
     </ul>
+    <ul class="logout-container">
+      <li>
+         <div class="list">
+          <div class="svg">
+            <img src="../../assets/images/logout.svg" alt="" />
+          </div>
+          <div class="content">Logout</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -185,12 +203,16 @@ export default {
   data() {
     return {
       isSelectedChilds: "",
+      isSelectedSettingChilds: "",
       toggle: false,
     };
   },
   methods: {
     slectedChild(val) {
       this.isSelectedChilds = val;
+    },
+    selectedSettingChild(val) {
+      this.isSelectedSettingChilds = val;
     },
   },
 };
@@ -222,9 +244,26 @@ export default {
   margin: 0 12px 0 14px;
   display: flex;
 }
+.menu ul li .svg .black{
+  display: block;
+}
+.menu ul li.active .black {
+ display: none;
+}
+.menu ul li .svg .white{
+  display: none;
+}
+.menu ul li.active .white {
+ display: block;
+}
 .menu ul li .content {
   position: relative;
   top: 2px;
   font-size: 14px;
+}
+.logout-container{
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
 }
 </style>

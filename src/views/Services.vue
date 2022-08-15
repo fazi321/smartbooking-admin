@@ -194,10 +194,7 @@ export default {
 };
 </script>
 <style scoped>
-.main-wrapper {
-  background: #f4f7fa;
-  padding: 25px;
-}
+
 .top-heading {
   line-height: 1.8;
 }

@@ -6,7 +6,7 @@
     </div>
     <div class="image-container">
       <div class="profile-avatar">
-        <!-- <img src="" alt=""/> -->
+        <img src="../assets/images/user-icon.svg" alt="user-icon"/>
       </div>
       <div class="profile-primary">
         <h5>Hello, George</h5>
@@ -47,7 +47,7 @@ export default {};
 .image-container .profile-avatar {
   width: 34px;
   height: 34px;
-  background: red;
+  background: #eee;
   border-radius: 50%;
   margin-right: 10px;
 }
