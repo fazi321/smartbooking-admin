@@ -217,13 +217,12 @@ img {
   flex-direction: column;
 }
 .input-div button {
-  padding: 15px 30px;
   background: #febb12;
   color: #fff;
   width: 72%;
   font-size: 18px;
   border: none;
-  padding: 18px 30px;
+  padding: 16px 30px;
   border-radius: 50px;
   outline: none;
   margin-bottom: 40px;
