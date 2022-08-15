@@ -9,7 +9,7 @@
         <button @click="CityModelShow">Add New City</button>
       </div>
       <div class="category-main">
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/city-img.png" />
           </div>
@@ -18,7 +18,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -27,7 +27,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -36,7 +36,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -45,7 +45,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -54,7 +54,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -63,7 +63,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -72,7 +72,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
@@ -81,7 +81,7 @@
             <h3>2447</h3>
           </div>
         </router-link>
-        <router-link to="/booking-details" class="category-card">
+        <router-link to="#" class="category-card">
           <div class="icon">
             <img src="../assets/images/city-img.png" />
           </div>
