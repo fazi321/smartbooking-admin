@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 h1,
@@ -55,14 +55,14 @@ ul {
 }
 
 .pagination {
-  margin: 50px 0;
+  margin: 20px 0;
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
 .page-item .page-link {
-  padding: 10px 15px;
+  padding: 8px 13px;
   border: none;
   margin: 6px;
   font-size: 14px;
@@ -76,16 +76,16 @@ ul {
 }
 
 .service-pagination .page-item .page-link {
-  border-radius: 11px !important;
-  color: #5372E7;
+  border-radius: 7px !important;
+  color: #5372e7;
 }
 
 .disabled .page-link {
-  color: #eee ;
+  color: #eee;
 }
 
 .service-pagination .disabled .page-link {
-  color: #000000!important;
+  color: #000000 !important;
   opacity: 0.7;
   font-weight: normal;
 }
@@ -95,7 +95,7 @@ ul {
 }
 
 .active .page-link {
-  background-color: #FEBB12;
+  background-color: #febb12;
   color: #000;
 }
 
