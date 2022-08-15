@@ -118,5 +118,6 @@ export default {
   padding: 12px 30px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
 }
 </style>

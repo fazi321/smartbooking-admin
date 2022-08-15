@@ -135,6 +135,8 @@ export default {
   padding: 12px 20px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
+  width: 17%;
 }
 .service-detail {
   margin: 20px 0;
@@ -216,7 +218,7 @@ th:first-child {
   height: 20px !important;
 }
 .payment-icon {
-  width: 50px;
-  height: 30px;
+  width: 40px;
+  /* height: 30px; */
 }
 </style>

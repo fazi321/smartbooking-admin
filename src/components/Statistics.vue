@@ -60,6 +60,6 @@ export default {
 .header-content h1 {
   text-align: left;
   font-size: 16px;
-  margin: 0px 0 20px 0;
+  margin: 25px 0 20px 0;
 }
 </style>

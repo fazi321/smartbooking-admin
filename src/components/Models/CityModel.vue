@@ -101,7 +101,7 @@ export default {
 }
 .upload-file {
   margin: 30px 0px 10px 0px;
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0px 0px 8px 2px #e9e8e8;
   border-radius: 20px;
   line-height: 1.8;
@@ -120,6 +120,7 @@ export default {
   color: #fff;
   font-size: 12px;
   border-radius: 20px;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
 }
 .add-btn {
   margin: 40px 0 10px 0;
@@ -134,6 +135,7 @@ export default {
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
 }
 /* responsive */
 @media (max-width: 479px) and (min-width: 320px) {

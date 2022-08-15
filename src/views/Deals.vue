@@ -207,6 +207,8 @@ export default {
   padding: 12px 20px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
+  width: 17%;
 }
 .service-detail {
   padding: 20px 0 40px 0;

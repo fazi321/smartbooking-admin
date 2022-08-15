@@ -45,18 +45,19 @@ export default {};
 
 <style scoped>
 .cards-container {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
+  gap: 25px;
+  width: 100%;
   padding: 20px 0 6px 0;
 }
 .cards-container .card {
   text-align: center;
-  width: 182px;
+  margin: 0 0 -12px 0px;
+  width: 15%;
   background: #fff;
   padding: 14px;
   border-radius: 5px;
-  margin-right: 20px;
-  margin-bottom: 14px;
 }
 .cards-container .card h1 {
   font-size: 14px;

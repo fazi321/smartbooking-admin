@@ -198,6 +198,7 @@ export default {
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
 }
 /* responsive */
 @media (max-width: 479px) and (min-width: 320px) {

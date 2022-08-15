@@ -136,7 +136,7 @@ export default {
   font-size: 12px;
 }
 .add-btn {
-  width: 98%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
 }
@@ -149,17 +149,20 @@ export default {
   padding: 12px 20px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 2px 4px 1px #c9c9c9a6;
+  width: 17%;
 }
 .category-main {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
+  gap: 25px;
+  width: 100%;
   /* justify-content: space-between; */
   padding: 20px 0;
 }
 .category-card {
-  width: calc(16% - 2px);
-  margin-right: 23px;
-  margin-bottom: 20px;
+  width: 16%;
+   margin: 0 0 -12px 0px;
   background: #fff;
   display: flex;
   flex-direction: column;
