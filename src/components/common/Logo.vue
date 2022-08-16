@@ -1,6 +1,8 @@
 <template>
   <section class="logo">
+   <router-link to="/">
     <img src="../../assets/images/logo.svg" alt="" />
+    </router-link>
   </section>
 </template>
 
