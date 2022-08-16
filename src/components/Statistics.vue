@@ -1,11 +1,13 @@
 <template>
-  <div class="header-content">
+  <div>
+   <div class="header-content">
     <h1>See your Statistics</h1>
   </div>
   <div class="graphs">
     <StatisticsGraph :data="monthlyData" />
     <StatisticsGraph :data="yearlyData" />
   </div>
+ </div>
 </template>
 
 <script>

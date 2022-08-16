@@ -24,6 +24,6 @@ export default {
   background: #F4F7FA;
   width: 80%;
   padding:20px;
-  height: 100vh;
+  height: 100%;
 }
 </style>
