@@ -9,7 +9,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 const axiosInstence = () =>
   axios.create({
-    baseURL: "http://13.229.167.135:5000/api/v1/",
+    baseURL: "https://www.testingserver.tech/api/v1/",
     withCredentials: false,
   });
 const app = createApp(App);
