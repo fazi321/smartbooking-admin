@@ -75,8 +75,18 @@
         </div>
       </li>
       <!-- vendor childs -->
-      <div v-if="isSelectedChilds == 'vn' || $route.query.category">
-        <li :class="{ activee: $route.query.category == 'improved' }">
+      <div
+        v-if="
+          isSelectedChilds == 'vn' ||
+          ($route.path == '/vendor' && $route.query.type)
+        "
+      >
+        <li
+          :class="{
+            activee:
+              $route.path == '/vendor' && $route.query.type == 'improved',
+          }"
+        >
           <router-link to="#">
             <div class="list">
               <div class="svg">
@@ -86,8 +96,12 @@
             </div>
           </router-link>
         </li>
-        <li :class="{ activee: $route.query.category == 'pending' }">
-          <router-link to="/vendor?category=pending">
+        <li
+          :class="{
+            activee: $route.path == '/vendor' && $route.query.type == 'pending',
+          }"
+        >
+          <router-link to="/vendor?type=pending">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -113,25 +127,65 @@
           </div>
         </router-link>
       </li>
-      <li :class="{ active: $route.path == '/services' && !isSelectedChilds }">
-        <router-link to="/services">
-          <div class="list">
-            <div class="svg">
-              <img
-                class="black"
-                src="../../assets/images/services.svg"
-                alt=""
-              />
-              <img
-                class="white"
-                src="../../assets/images/white-service.svg"
-                alt=""
-              />
-            </div>
-            <div class="content">Services</div>
+      <li
+        @click="slectedChild('sr')"
+        :class="{
+          active: isSelectedChilds == 'sr' || $route.path == '/services',
+        }"
+      >
+        <!-- <router-link to="/services"> -->
+        <div class="list">
+          <div class="svg">
+            <img class="black" src="../../assets/images/services.svg" alt="" />
+            <img
+              class="white"
+              src="../../assets/images/white-service.svg"
+              alt=""
+            />
           </div>
-        </router-link>
+          <div class="content">Services</div>
+        </div>
+        <!-- </router-link> -->
       </li>
+      <!-- service childs -->
+      <div
+        v-if="
+          isSelectedChilds == 'sr' ||
+          ($route.path == '/services' && $route.query.type)
+        "
+      >
+        <li
+          :class="{
+            activee:
+              $route.path == '/services' && $route.query.type == 'improved',
+          }"
+        >
+          <router-link to="#">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">Approved</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/services' && $route.query.type == 'pending',
+          }"
+        >
+          <router-link to="/services?type=pending">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">Pending Requests</div>
+            </div>
+          </router-link>
+        </li>
+      </div>
+      <!-- service childs end -->
       <li :class="{ active: $route.path == '/cities' && !isSelectedChilds }">
         <router-link to="/cities">
           <div class="list">
