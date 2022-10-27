@@ -9,7 +9,7 @@
         </div>
         <div class="login-form">
           <div class="form-container">
-            <form autocomplete="off" @submit.prevent="Login">
+            <form autocomplete="off" @submit.prevent="Login" v-if="!signUp">
               <div class="input-div">
                 <div class="input-primary input-set">
                   <div class="flag">
@@ -54,14 +54,43 @@
                 </div>
               </div>
               <div class="input-div">
-                <button type="submit">Login</button>
+                <button type="submit" v-if="!loading">Login</button>
+                <button v-else>Loading...</button>
+                <!-- <button >Loading...</button> -->
+              </div>
+            </form>
+            <!-- sign up -->
+            <form autocomplete="off" @submit.prevent="signUpPassword" v-else>
+              <div class="input-div">
+                <div class="input-primary">
+                  <div class="flag">
+                    <div class="flag-img">
+                      <img src="../../assets/images/lock.svg" alt="flag" />
+                    </div>
+                  </div>
+                  <div class="container-input">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      v-model="signUppass"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="input-div">
+                <button type="submit" v-if="!loading">Sign Up</button>
+                <button v-else>Loading...</button>
                 <!-- <button >Loading...</button> -->
               </div>
             </form>
           </div>
-          <!-- <div class="buttom-text">
+          <div class="buttom-text" v-if="!signUp">
             Don’t Have an Account? <span @click="SignUpModel">Sign Up </span>
-          </div> -->
+          </div>
+          <div class="buttom-text" v-else>
+            Login Account ? <span @click="loginModel">Login </span>
+          </div>
         </div>
       </div>
     </div>
@@ -76,10 +105,17 @@ export default {
       email: null,
       pass: null,
       remember: false,
+      //
+      signUp: false,
+      signUppass: null,
+      //
+      loading: false,
     };
   },
   methods: {
     async Login() {
+      this.loading = true;
+      // remember Me
       if (this.remember) {
         this.$cookies.set("user_email", this.email, 60 * 60 * 24 * 30 * 365);
         this.$cookies.set("user_pass", this.pass, 60 * 60 * 24 * 30 * 365);
@@ -87,20 +123,58 @@ export default {
         this.$cookies.remove("user_email");
         this.$cookies.remove("user_pass");
       }
-      localStorage.user = true;
-      if (localStorage.user) {
-        this.$router.push("/");
+      try {
+        const login = await this.$axios.post("user/admin/login", {
+          email: this.email,
+          password: this.pass,
+        });
+        if (login) {
+          this.$store.commit("USER_INFO", login);
+          this.$cookies.set("Authorization", login.data.token, { expires: 7 });
+          this.$axios.defaults.headers.common[
+            "Authorization"
+          ] = `bearer ${login.data.token}`;
+          this.loading = false;
+          this.$router.push("/");
+          // localStorage.user = true;
+        }
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
       }
     },
+    async signUpPassword() {
+      this.loading = true;
+      try {
+        const login = await this.$axios.post("user/admin/signup", {
+          password: this.signUppass,
+        });
+        if (login) {
+          this.signUp = false;
+          this.loading = false;
+          this.email = login.data.email
+          // localStorage.user = true;
+        }
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
+    SignUpModel() {
+      this.signUp = true;
+    },
+    loginModel(){
+      this.signUp = false;
+    }
   },
   mounted() {
     this.email = this.$cookies.get("user_email");
     this.pass = this.$cookies.get("user_pass");
-    if (localStorage.user == "false" || !localStorage.user) {
-      this.$router.push("/login");
-    } else {
-      this.$router.push("/");
-    }
+    // if (localStorage.user == "false" || !localStorage.user) {
+    //   this.$router.push("/login");
+    // } else {
+    //   this.$router.push("/");
+    // }
   },
 };
 </script>
@@ -192,6 +266,7 @@ img {
   width: 90%;
 }
 .login-form input[type="email"],
+.login-form input[type="number"],
 .login-form input[type="password"] {
   width: 100%;
   /* height: 42px; */

@@ -10,11 +10,11 @@
       <div class="service-details">
         <div>
           <p>Vendor Name</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ selectedVendor.firstName }}</p>
         </div>
         <div>
           <p>Mobile number</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ selectedVendor.phone }}</p>
         </div>
         <div>
           <p>Email</p>
@@ -22,27 +22,33 @@
         </div>
         <div>
           <p>Address</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ selectedVendor.email }}</p>
         </div>
         <div>
           <p>Services</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ selectedVendor.numberOfservices }}</p>
         </div>
         <div>
           <p>Commercial ID No</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ selectedVendor.commId }}</p>
         </div>
       </div>
       <div class="id-image">
         <div>
           <h3>Commercial ID Image</h3>
-          <div class="placeholder-img">
+          <div class="placeholder-img" v-if="!selectedVendor.file">
             <img src="../../assets/images/placeholder.png" />
+          </div>
+          <div class="placeholder-img" v-else>
+            <img :src="selectedVendor.file" />
           </div>
         </div>
         <div class="add-btn">
-          <button>Close</button>
+          <button @click="Approve">Approve</button>
         </div>
+        <!-- <div class="add-btn">
+          <button>Close</button>
+        </div> -->
       </div>
     </div>
   </section>
@@ -51,14 +57,61 @@
 <script>
 export default {
   name: "VendorDetailModel",
+  props: ["selectedVendor"],
   data() {
     return {};
   },
   methods: {
+    Approve() {
+      const imagePath = require("../../assets/images/cancelicon.png");
+      this.$swal({
+        title: "You want to Approve?",
+        text: "You want to Approve the vendor?",
+        imageUrl: imagePath,
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+        confirmButtonColor: "#FEBB12",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cancelConfirmed();
+        }
+      });
+    },
+    async cancelConfirmed() {
+      try {
+        var res = await this.$axios.get(
+          `admin/vender/accept/${this.selectedVendor._id}`
+        );
+        if (res) {
+          this.$swal({
+            title: "Approved",
+            text: "Your vendor has been Approved successfully.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#FEBB12",
+            confirmButtonText: "Done",
+            reverseButtons: true,
+          });
+        }
+      } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Some Thing Went Wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        console.log(error);
+      }
+    },
     closeSlide() {
       this.$parent.$parent.vendorModel = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -96,7 +149,7 @@ export default {
   top: 26px;
   position: absolute;
   right: 20px;
- width: 15px;
+  width: 15px;
   height: 15px;
   cursor: pointer;
   z-index: 99;

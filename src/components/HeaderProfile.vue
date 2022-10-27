@@ -9,7 +9,7 @@
         <img src="../assets/images/user-icon.svg" alt="user-icon"/>
       </div>
       <div class="profile-primary">
-        <h5>Hello, George</h5>
+        <h5>{{$store.state.user ? $store.state.user.firstName:'Hello, George'}}</h5>
         <h6>Admin</h6>
       </div>
     </div>

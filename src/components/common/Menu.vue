@@ -77,7 +77,7 @@
       <!-- vendor childs -->
       <div v-if="isSelectedChilds == 'vn' || $route.query.category">
         <li :class="{ activee: $route.query.category == 'improved' }">
-          <router-link to="/vendor?category=improved">
+          <router-link to="#">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->
@@ -275,7 +275,8 @@ export default {
       this.isSelectedChilds = val;
     },
     logOut() {
-      localStorage.user = false;
+      // localStorage.user = false;
+      this.$cookies.remove("Authorization");
       this.$router.push("/login");
     },
   },

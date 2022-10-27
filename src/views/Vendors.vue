@@ -22,22 +22,22 @@
               <th>ID Image</th>
               <th>Action</th>
             </tr>
-            <tr>
-              <td>01</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>1</td>
-              <td>Lorem Ipsum</td>
+            <tr v-for="(vendor, index) in vendorList" :key="index">
+              <td>{{ vendor.count }}</td>
+              <td>{{ vendor.firstName }}</td>
+              <td>{{ vendor.phone }}</td>
+              <td>{{ vendor.email }}</td>
+              <td>{{ vendor.address }}</td>
+              <td>{{ vendor.numberOfservices }}</td>
+              <td>{{ vendor.commId }}</td>
               <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="VendorModelShow">
+                <div class="view-btn" @click="VendorModelShow(vendor)">
                   <button>Action</button>
                 </div>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>02</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
@@ -141,17 +141,17 @@
                   <button>Action</button>
                 </div>
               </td>
-            </tr>
+            </tr> -->
           </table>
           <div class="bottom-container">
             <div>
-              <p>Showing 1 to 10 of 30 entries</p>
+              <p>Showing 1 to {{ dataShow }} of {{ total }} entries</p>
             </div>
             <div class="service-pagination">
               <paginate
                 :page-range="3"
                 :margin-pages="2"
-                :page-count="3"
+                :page-count="pageCount"
                 :click-handler="clickCallback"
                 :prev-text="'Previous'"
                 :next-text="''"
@@ -162,7 +162,7 @@
           </div>
         </div>
       </div>
-      <VendorDetailModel v-if="vendorModel" />
+      <VendorDetailModel v-if="vendorModel" :selectedVendor="selectedVendor" />
     </section>
   </default-layout>
 </template>
@@ -177,25 +177,60 @@ export default {
   components: {
     DefaultLayout,
     Paginate,
-    VendorDetailModel
+    VendorDetailModel,
   },
   data() {
     return {
-      vendorModel: false
+      vendorModel: false,
+      vendorData: [],
+      vendorList: [],
+      //
+      pageCount: 0,
+      selectedVendor: {},
+      total: 0,
+      //
+      dataShow: 10,
     };
   },
+  mounted() {
+    this.getRequests();
+  },
   methods: {
-    VendorModelShow() {
+    clickCallback(num) {
+      var copyFrom = num * this.dataShow - this.dataShow;
+      var copyTo = num * this.dataShow;
+      this.vendorList = this.vendorData.slice(copyFrom, copyTo);
+    },
+    VendorModelShow(vendorObj) {
+      this.selectedVendor = vendorObj;
       this.vendorModel = !this.vendorModel;
     },
-    clickCallback(num) {
-      this.$refs.slider.slideTo(num);
-    }
-  }
+    async getRequests() {
+      try {
+        const pendingVendors = await this.$axios.get(
+          "admin/users/upgrade-request"
+        );
+        this.total = pendingVendors.data.total;
+        //asigning number
+        for (
+          let index = 0;
+          index < pendingVendors.data.requested_user.length;
+          index++
+        ) {
+          const element = pendingVendors.data.requested_user[index];
+          element.count = index + 1;
+          this.vendorData.push(element);
+        }
+        this.pageCount = Math.ceil(pendingVendors.data.total / this.dataShow);
+        this.vendorList = this.vendorData.slice(0, this.dataShow);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 <style scoped>
-
 .top-heading {
   line-height: 1.8;
 }
@@ -251,7 +286,7 @@ export default {
   padding: 15px 8px;
   white-space: nowrap;
 }
-th:first-child{
+th:first-child {
   padding: 15px !important;
 }
 .service-detail table td {
@@ -279,7 +314,7 @@ th:first-child{
   outline: none;
   border-radius: 7px;
   opacity: 1;
-  background: #FEBB12;
+  background: #febb12;
   text-align: center;
   letter-spacing: 0px;
   color: #ffffff;

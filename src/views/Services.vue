@@ -21,22 +21,21 @@
               <th>Email</th>
               <th>Action</th>
             </tr>
-            <tr>
-              <td>01</td>
+            <tr v-for="(service, index) in serviceList" :key="index">
+              <td>{{ service.count }}</td>
+              <td>{{ service.description.nameInEnglish }}</td>
+              <td>{{ address(service.address.address) }}</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-             
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
                 </div>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>02</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
@@ -44,7 +43,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-             
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -59,7 +58,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-             
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -74,7 +73,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -89,7 +88,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -104,7 +103,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -119,7 +118,7 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-             
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
@@ -134,17 +133,17 @@
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
               <td>Lorem Ipsum</td>
-              
+
               <td>
                 <div class="view-btn" @click="servicesModelShow">
                   <button>Action</button>
                 </div>
               </td>
-            </tr>
+            </tr> -->
           </table>
           <div class="bottom-container">
             <div>
-              <p>Showing 1 to 10 of 30 entries</p>
+              <p>Showing 1 to 10 of {{ total }} entries</p>
             </div>
             <div class="service-pagination">
               <paginate
@@ -176,25 +175,66 @@ export default {
   components: {
     DefaultLayout,
     Paginate,
-    ServicesModel
+    ServicesModel,
   },
   data() {
     return {
-      servicesModel: false
+      servicesModel: false,
+      serviceData: [],
+      serviceList: [],
+      //
+      pageCount: 0,
+      selectedService: {},
+      total: 0,
+      //
+      dataShow: 10,
     };
   },
+  mounted() {
+    this.getRequests();
+  },
   methods: {
-    servicesModelShow() {
+    clickCallback(num) {
+      var copyFrom = num * this.dataShow - this.dataShow;
+      var copyTo = num * this.dataShow;
+      this.serviceList = this.serviceData.slice(copyFrom, copyTo);
+    },
+    address(add) {
+      let address = "";
+      if (add.length > 20) {
+        address = add.slice(0, 20) + "...";
+      } else {
+        address = add;
+      }
+      return address;
+    },
+    servicesModelShow(serviceObj) {
+      this.selectedServices = serviceObj;
       this.servicesModel = !this.servicesModel;
     },
-    clickCallback(num) {
-      this.$refs.slider.slideTo(num);
-    }
-  }
+    async getRequests() {
+      try {
+        const services = await this.$axios.get(
+          "https://www.testingserver.tech/api/v1/admin/service/pending"
+        );
+        console.log(services, "==>");
+        this.total = services.data.length;
+        //asigning number
+        for (let index = 0; index < services.data.length; index++) {
+          const element = services.data[index];
+          element.count = index + 1;
+          this.serviceData.push(element);
+        }
+        this.pageCount = Math.ceil(services.data.total / this.dataShow);
+        this.serviceList = this.serviceData.slice(0, this.dataShow);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 <style scoped>
-
 .top-heading {
   line-height: 1.8;
 }
@@ -275,7 +315,7 @@ export default {
   outline: none;
   border-radius: 7px;
   opacity: 1;
-  background: #FEBB12;
+  background: #febb12;
   text-align: center;
   letter-spacing: 0px;
   color: #ffffff;

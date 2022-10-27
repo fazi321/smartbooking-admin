@@ -3,11 +3,22 @@
 </template>
 <script>
 export default {
-  mounted() {
-    if (localStorage.user == "false" || !localStorage.user) {
+  beforeCreate() {
+    let auth = this.$cookies.get("Authorization");
+    if (auth) {
+      this.$axios.defaults.headers.common["Authorization"] = `bearer ${auth}`;
+      this.$router.push("/");
+      // this.$store.dispatch("auth/profile");
+    } else {
+      this.$axios.defaults.headers.common["Authorization"] = "";
       this.$router.push("/login");
     }
   },
+  // mounted() {
+  //   if (localStorage.user == "false" || !localStorage.user) {
+  //     this.$router.push("/login");
+  //   }
+  // },
 };
 </script>
 
