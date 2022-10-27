@@ -5,7 +5,7 @@
         <img src="../../assets/images/close-icon.svg" alt />
       </div>
       <div class="service-heading">
-        <h2>Vendor Details</h2>
+        <h2 >Vendor Details</h2>
       </div>
       <div class="service-details">
         <div>
@@ -88,6 +88,7 @@ export default {
           `admin/vender/accept/${this.selectedVendor._id}`
         );
         if (res) {
+          this.$emit('call')
           this.$swal({
             title: "Approved",
             text: "Your vendor has been Approved successfully.",

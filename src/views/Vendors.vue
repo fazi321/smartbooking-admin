@@ -162,7 +162,11 @@
           </div>
         </div>
       </div>
-      <VendorDetailModel v-if="vendorModel" :selectedVendor="selectedVendor" />
+      <VendorDetailModel
+        v-if="vendorModel"
+        :selectedVendor="selectedVendor"
+        @call="close"
+      />
     </section>
   </default-layout>
 </template>
@@ -212,6 +216,7 @@ export default {
         );
         this.total = pendingVendors.data.total;
         //asigning number
+        this.vendorData = [];
         for (
           let index = 0;
           index < pendingVendors.data.requested_user.length;
@@ -226,6 +231,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    close() {
+      this.selectedVendor = false;
+      this.vendorModel = false;
+      this.getRequests();
     },
   },
 };
