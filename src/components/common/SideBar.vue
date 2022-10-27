@@ -4,7 +4,7 @@
       <section class="logo-container">
         <Logo />
       </section>
-      <section>
+      <section class="primary">
         <Menu />
       </section>
     </div>
@@ -36,11 +36,15 @@ export default {
 .side-bar .inner-side {
   position: fixed;
   width: 20%;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   bottom: 0;
   top: 0;
 }
-.inner-side::-webkit-scrollbar {
+.inner-side .primary{
+  overflow-y: scroll;
+  height: 600px;
+}
+.inner-side .primary::-webkit-scrollbar {
   width: 2px;
 }
 

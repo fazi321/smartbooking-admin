@@ -381,7 +381,7 @@ export default {
   font-size: 14px;
 }
 .logout-container {
-  height: 200px;
+  height: 100px;
   display: flex;
   align-items: flex-end;
 }
