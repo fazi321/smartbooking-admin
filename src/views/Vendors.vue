@@ -149,6 +149,7 @@
             </div>
             <div class="service-pagination">
               <paginate
+                v-model="pageSelected"
                 :page-range="3"
                 :margin-pages="2"
                 :page-count="pageCount"
@@ -192,6 +193,7 @@ export default {
       pageCount: 0,
       selectedVendor: {},
       total: 0,
+      pageSelected: 1,
       //
       dataShow: 10,
     };

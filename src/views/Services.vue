@@ -26,11 +26,15 @@
               <td>{{ service.description.nameInEnglish }}</td>
               <td>{{ address(service.address.address) }}</td>
               <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
               <td>
-                <div class="view-btn" @click="servicesModelShow">
+                {{ service.vender && service.vender.firstName }}
+                {{ service.vender && service.vender.lastName }}
+              </td>
+              <td>{{ service.vender && service.vender.phone }}</td>
+              <td>{{ service.vender && service.vender.email }}</td>
+              <!-- <td>Lorem Ipsum</td> -->
+              <td>
+                <div class="view-btn" @click="servicesModelShow(service)">
                   <button>Action</button>
                 </div>
               </td>
@@ -147,9 +151,10 @@
             </div>
             <div class="service-pagination">
               <paginate
+                v-model="pageSelected"
                 :page-range="3"
                 :margin-pages="2"
-                :page-count="3"
+                :page-count="pageCount"
                 :click-handler="clickCallback"
                 :prev-text="'Previous'"
                 :next-text="''"
@@ -160,7 +165,11 @@
           </div>
         </div>
       </div>
-      <ServicesModel v-if="servicesModel" />
+      <ServicesModel
+        v-if="servicesModel"
+        :service="selectedServices"
+        @call="close"
+      />
     </section>
   </default-layout>
 </template>
@@ -186,12 +195,10 @@ export default {
       pageCount: 0,
       selectedService: {},
       total: 0,
+      pageSelected: 1,
       //
       dataShow: 10,
     };
-  },
-  mounted() {
-    this.getRequests();
   },
   methods: {
     clickCallback(num) {
@@ -212,24 +219,44 @@ export default {
       this.selectedServices = serviceObj;
       this.servicesModel = !this.servicesModel;
     },
-    async getRequests() {
+    reSet() {
+      this.pageSelected = 1;
+      this.serviceData = [];
+      this.serviceList = [];
+    },
+    async getRequests(type) {
+      this.reSet();
       try {
-        const services = await this.$axios.get(
-          "https://www.testingserver.tech/api/v1/admin/service/pending"
-        );
-        console.log(services, "==>");
+        const services = await this.$axios.get(`admin/service/${type}`);
         this.total = services.data.length;
-        //asigning number
+        // asigning number
         for (let index = 0; index < services.data.length; index++) {
           const element = services.data[index];
           element.count = index + 1;
           this.serviceData.push(element);
         }
-        this.pageCount = Math.ceil(services.data.total / this.dataShow);
+        this.pageCount = Math.ceil(this.total / this.dataShow);
         this.serviceList = this.serviceData.slice(0, this.dataShow);
       } catch (error) {
         console.log(error);
       }
+    },
+    close() {
+      this.selectedService = false;
+      this.servicesModel = false;
+      this.getRequests();
+    },
+  },
+  watch: {
+    "$route.query": {
+      immediate: true,
+      handler(val) {
+        if (val.type == "pending") {
+          this.getRequests("pending");
+        } else if (val.type == "approved") {
+          this.getRequests("approved");
+        }
+      },
     },
   },
 };

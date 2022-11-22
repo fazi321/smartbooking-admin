@@ -157,10 +157,10 @@
         <li
           :class="{
             activee:
-              $route.path == '/services' && $route.query.type == 'improved',
+              $route.path == '/services' && $route.query.type == 'approved',
           }"
         >
-          <router-link to="#">
+          <router-link to="/services?type=approved">
             <div class="list">
               <div class="svg">
                 <!-- <img src="../../assets/images/house.svg" alt="" /> -->

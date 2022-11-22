@@ -3,23 +3,29 @@
     <section class="main-wrapper">
       <div class="top-heading">
         <h2>Categories</h2>
-        <p>You can see all the categories here. Also you can add new categories.</p>
+        <p>
+          You can see all the categories here. Also you can add new categories.
+        </p>
       </div>
       <div class="add-btn">
         <button @click="CategoryeModelShow">Add New Category</button>
       </div>
       <div class="category-main">
-        <div class="category-card">
+        <div
+          class="category-card"
+          v-for="(cat, index) in categoryData"
+          :key="index"
+        >
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/hotel-icon.png" />
           </div>
-          <h6>Hotels</h6>
+          <h6>{{ cat.category }}</h6>
           <div class="bottom-icons">
             <img src="../assets/images/edit.svg" />
             <img src="../assets/images/delete.svg" />
           </div>
         </div>
-        <div class="category-card">
+        <!-- <div class="category-card">
           <div class="icon">
             <img src="../assets/images/apartment.svg" />
           </div>
@@ -98,7 +104,7 @@
             <img src="../assets/images/edit.svg" />
             <img src="../assets/images/delete.svg" />
           </div>
-        </div>
+        </div> -->
       </div>
       <CategoriesModel v-if="categoryModel" />
     </section>
@@ -113,18 +119,32 @@ export default {
   name: "CatView",
   components: {
     DefaultLayout,
-    CategoriesModel
+    CategoriesModel,
   },
   data() {
     return {
-      categoryModel: false
+      categoryData: [],
+      categoryModel: false,
     };
   },
+  mounted() {
+    this.getData();
+  },
   methods: {
+    async getData() {
+      try {
+        var res = await this.$axios.get("admin/service-by-category");
+        if (res) {
+          this.categoryData = res.data;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     CategoryeModelShow() {
       this.categoryModel = !this.categoryModel;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -178,7 +198,7 @@ export default {
   align-items: center;
   padding: 10px;
   cursor: pointer;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 .category-card .icon {
   width: 100px;

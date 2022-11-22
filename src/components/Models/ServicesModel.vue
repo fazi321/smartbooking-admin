@@ -11,11 +11,11 @@
         <h3>Service Details</h3>
         <div>
           <p>Service Name</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.description.nameInEnglish }}</p>
         </div>
         <div>
           <p>Service Address</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.address.address }}</p>
         </div>
         <div>
           <p>Total Bookings</p>
@@ -26,23 +26,26 @@
         <h3>Vendor Details</h3>
         <div>
           <p>Vendor Name</p>
-          <p>Lorem Ipsum</p>
+          <p>
+            {{ service.vender && service.vender.firstName }}
+            {{ service.vender && service.vender.lastName }}
+          </p>
         </div>
         <div>
           <p>Mobile Number</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.vender && service.vender.phone }}</p>
         </div>
         <div>
           <p>Email</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.vender && service.vender.email }}</p>
         </div>
         <div>
           <p>Address</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.vender && service.vender.address }}</p>
         </div>
         <div>
           <p>Commmercial ID No</p>
-          <p>Lorem Ipsum</p>
+          <p>{{ service.vender && service.vender.commId }}</p>
         </div>
       </div>
       <div class="id-image">
@@ -53,7 +56,7 @@
           </div>
         </div>
         <div class="add-btn">
-          <button>Close</button>
+          <button @click="Approve">Approve</button>
         </div>
       </div>
     </div>
@@ -63,14 +66,63 @@
 <script>
 export default {
   name: "ServicesModel",
+  props: ["service"],
   data() {
     return {};
   },
   methods: {
+    Approve() {
+      const imagePath = require("../../assets/images/cancelicon.png");
+      this.$swal({
+        title: "You want to Approve?",
+        text: "You want to Approve the vendor?",
+        imageUrl: imagePath,
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+        confirmButtonColor: "#FEBB12",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // this.cancelConfirmed();
+          console.log("result");
+        }
+      });
+    },
+    // async cancelConfirmed() {
+    //   try {
+    //     var res = await this.$axios.get(
+    //       `admin/vender/accept/${this.selectedVendor._id}`
+    //     );
+    //     if (res) {
+    //       this.$emit('call')
+    //       this.$swal({
+    //         title: "Approved",
+    //         text: "Your vendor has been Approved successfully.",
+    //         icon: "success",
+    //         showCancelButton: false,
+    //         confirmButtonColor: "#FEBB12",
+    //         confirmButtonText: "Done",
+    //         reverseButtons: true,
+    //       });
+    //     }
+    //   } catch (error) {
+    //     this.$swal({
+    //       icon: "error",
+    //       title: "Some Thing Went Wrong!",
+    //       showConfirmButton: false,
+    //       timer: 3000,
+    //     });
+    //     console.log(error);
+    //   }
+    // },
     closeSlide() {
       this.$parent.$parent.servicesModel = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -108,7 +160,7 @@ export default {
   top: 26px;
   position: absolute;
   right: 20px;
- width: 15px;
+  width: 15px;
   height: 15px;
   cursor: pointer;
   z-index: 99;
