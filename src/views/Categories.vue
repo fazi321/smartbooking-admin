@@ -17,12 +17,12 @@
           :key="index"
         >
           <div class="icon">
-            <img class="hotel-icon" src="../assets/images/hotel-icon.png" />
+            <img class="hotel-icon" :src="cat.image" />
           </div>
           <h6>{{ cat.category }}</h6>
           <div class="bottom-icons">
             <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" />
+            <img src="../assets/images/delete.svg" @click="deleteCategory(cat._id)" />
           </div>
         </div>
         <!-- <div class="category-card">
@@ -133,7 +133,7 @@ export default {
   methods: {
     async getData() {
       try {
-        var res = await this.$axios.get("admin/service-by-category");
+        var res = await this.$axios.get("admin/all-category");
         if (res) {
           this.categoryData = res.data;
         }

@@ -25,7 +25,7 @@
               <td>{{ service.count }}</td>
               <td>{{ service.description.nameInEnglish }}</td>
               <td>{{ address(service.address.address) }}</td>
-              <td>Lorem Ipsum</td>
+              <td>{{service.totalBooking ? service.totalBooking: 0}}</td>
               <td>
                 {{ service.vender && service.vender.firstName }}
                 {{ service.vender && service.vender.lastName }}
@@ -244,7 +244,8 @@ export default {
     close() {
       this.selectedService = false;
       this.servicesModel = false;
-      this.getRequests();
+      var {type} = this.$route.query;
+      this.getRequests(type);
     },
   },
   watch: {

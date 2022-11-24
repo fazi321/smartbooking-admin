@@ -57,25 +57,26 @@
         </router-link>
       </li>
       <li
-        @click="slectedChild('vn')"
         :class="{
-          active: isSelectedChilds == 'vn' || $route.path == '/vendor',
+          active: $route.path == '/vendor',
         }"
       >
-        <div class="list">
-          <div class="svg">
-            <img class="black" src="../../assets/images/vendor.svg" alt="" />
-            <img
-              class="white"
-              src="../../assets/images/white-vendor.svg"
-              alt=""
-            />
+        <router-link to="/vendor">
+          <div class="list">
+            <div class="svg">
+              <img class="black" src="../../assets/images/vendor.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-vendor.svg"
+                alt=""
+              />
+            </div>
+            <div class="content">Vendors</div>
           </div>
-          <div class="content">Vendors</div>
-        </div>
+        </router-link>
       </li>
       <!-- vendor childs -->
-      <div
+      <!-- <div
         v-if="
           isSelectedChilds == 'vn' ||
           ($route.path == '/vendor' && $route.query.type)
@@ -90,7 +91,7 @@
           <router-link to="#">
             <div class="list">
               <div class="svg">
-                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+                <img src="../../assets/images/house.svg" alt="" />
               </div>
               <div class="content">Approved</div>
             </div>
@@ -104,13 +105,13 @@
           <router-link to="/vendor?type=pending">
             <div class="list">
               <div class="svg">
-                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+                <img src="../../assets/images/house.svg" alt="" />
               </div>
               <div class="content">Pending Requests</div>
             </div>
           </router-link>
         </li>
-      </div>
+      </div> -->
       <!-- vendor childs end -->
       <li :class="{ active: $route.path == '/bookings' && !isSelectedChilds }">
         <router-link to="/bookings">

@@ -18,111 +18,21 @@
               <th>Location</th>
               <th>Start Date</th>
               <th>Expiry Date</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
             </tr>
-            <tr>
-              <td>01</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
+            <tr v-for="(deal, index) in serviceList" :key="index">
+              <td>{{ deal.count }}</td>
+              <td>{{ deal.dealName }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ address(deal.location) }}</td>
+              <td>{{ getDate(deal.startDate) }}</td>
+              <td>{{ getDate(deal.expiryDate) }}</td>
+              <!-- <td>Lorem Ipsum</td> -->
+              <!-- <td>
+                <div class="view-btn" @click="servicesModelShow(service)">
                   <button>Action</button>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>Lorem Ipsum</td>
-              <td>
-                <div class="view-btn" >
-                  <button>Action</button>
-                </div>
-              </td>
+              </td> -->
             </tr>
           </table>
           <div class="bottom-container">
@@ -131,9 +41,10 @@
             </div>
             <div class="service-pagination">
               <paginate
+                v-model="pageSelected"
                 :page-range="3"
                 :margin-pages="2"
-                :page-count="3"
+                :page-count="pageCount"
                 :click-handler="clickCallback"
                 :prev-text="'Previous'"
                 :next-text="''"
@@ -144,7 +55,7 @@
           </div>
         </div>
       </div>
-      <DealsModel v-if="dealeModel" />
+      <DealsModel v-if="dealModel" :deal="selectedService" @close="close" />
     </section>
   </default-layout>
 </template>
@@ -159,25 +70,79 @@ export default {
   components: {
     DefaultLayout,
     Paginate,
-    DealsModel
+    DealsModel,
   },
+  // data() {
+  //   return {
+  //     dealeModel: false
+  //   };
+  // },
   data() {
     return {
-      dealeModel: false
+      dealModel: false,
+      serviceData: [],
+      serviceList: [],
+      //
+      pageCount: 0,
+      selectedService: {},
+      total: 0,
+      pageSelected: 1,
+      //
+      dataShow: 10,
     };
   },
+  mounted() {
+    this.getDeals();
+  },
   methods: {
-    DealModelShow() {
-      this.dealeModel = !this.dealeModel;
+    getDate(val) {
+      var d = new Date(val);
+      return d.toLocaleDateString("en-GB");
     },
     clickCallback(num) {
-      this.$refs.slider.slideTo(num);
-    }
-  }
+      var copyFrom = num * this.dataShow - this.dataShow;
+      var copyTo = num * this.dataShow;
+      this.serviceList = this.serviceData.slice(copyFrom, copyTo);
+    },
+    address(add) {
+      let address = "";
+      if (add.length > 20) {
+        address = add.slice(0, 20) + "...";
+      } else {
+        address = add;
+      }
+      return address;
+    },
+    DealModelShow(serviceObj) {
+      this.selectedServices = serviceObj;
+      this.dealModel = !this.dealModel;
+    },
+    async getDeals() {
+      try {
+        const services = await this.$axios.get(`admin/deal`);
+        this.total = services.data.length;
+        // asigning number
+        for (let index = 0; index < services.data.length; index++) {
+          const element = services.data[index];
+          element.count = index + 1;
+          this.serviceData.push(element);
+        }
+        this.pageCount = Math.ceil(this.total / this.dataShow);
+        this.serviceList = this.serviceData.slice(0, this.dataShow);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    close() {
+      this.dealModel = false;
+    },
+    // clickCallback(num) {
+    //   this.$refs.slider.slideTo(num);
+    // }
+  },
 };
 </script>
 <style scoped>
-
 .top-heading {
   line-height: 1.8;
 }
@@ -257,7 +222,7 @@ export default {
   outline: none;
   border-radius: 7px;
   opacity: 1;
-  background: #FEBB12;
+  background: #febb12;
   text-align: center;
   letter-spacing: 0px;
   color: #ffffff;

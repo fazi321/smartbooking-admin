@@ -5,47 +5,52 @@
         <img src="../../assets/images/close-icon.svg" alt />
       </div>
       <div class="service-heading">
-        <h2 >Vendor Details</h2>
+        <h2>Vendor Details</h2>
       </div>
-      <div class="service-details">
-        <div>
-          <p>Vendor Name</p>
-          <p>{{ selectedVendor.firstName }}</p>
+      <section class="service-popup">
+        <div class="service-details">
+          <div>
+            <p>Vendor Name</p>
+            <p>{{ selectedVendor.firstName }}</p>
+          </div>
+          <div>
+            <p>Mobile number</p>
+            <p>{{ selectedVendor.phone }}</p>
+          </div>
+          <div>
+            <p>Email</p>
+            <p>{{selectedVendor.email}}</p>
+          </div>
+          <div>
+            <p>Address</p>
+            <p>{{ selectedVendor.address }}</p>
+          </div>
+          <div>
+            <p>Services</p>
+            <p>{{ selectedVendor.numberOfservices }}</p>
+          </div>
+          <div>
+            <p>Commercial ID No</p>
+            <p>{{ selectedVendor.commId }}</p>
+          </div>
         </div>
-        <div>
-          <p>Mobile number</p>
-          <p>{{ selectedVendor.phone }}</p>
-        </div>
-        <div>
-          <p>Email</p>
-          <p>Lorem Ipsum</p>
-        </div>
-        <div>
-          <p>Address</p>
-          <p>{{ selectedVendor.email }}</p>
-        </div>
-        <div>
-          <p>Services</p>
-          <p>{{ selectedVendor.numberOfservices }}</p>
-        </div>
-        <div>
-          <p>Commercial ID No</p>
-          <p>{{ selectedVendor.commId }}</p>
-        </div>
-      </div>
+        <!-- <div class="id-image">
+          <div>
+            <h3>Commercial ID Image</h3>
+            <div class="placeholder-img" v-if="!selectedVendor.file">
+              <img src="../../assets/images/placeholder.png" />
+              <img src="../../assets/images/placeholder.png" />
+            </div>
+            <div class="placeholder-img" v-else>
+              <img :src="selectedVendor.file" />
+            </div>
+          </div>
+        </div> -->
+      </section>
       <div class="id-image">
-        <div>
-          <h3>Commercial ID Image</h3>
-          <div class="placeholder-img" v-if="!selectedVendor.file">
-            <img src="../../assets/images/placeholder.png" />
-          </div>
-          <div class="placeholder-img" v-else>
-            <img :src="selectedVendor.file" />
-          </div>
-        </div>
-        <div class="add-btn">
+        <!-- <div class="add-btn">
           <button @click="Approve">Approve</button>
-        </div>
+        </div> -->
         <!-- <div class="add-btn">
           <button>Close</button>
         </div> -->
@@ -88,7 +93,7 @@ export default {
           `admin/vender/accept/${this.selectedVendor._id}`
         );
         if (res) {
-          this.$emit('call')
+          this.$emit("call");
           this.$swal({
             title: "Approved",
             text: "Your vendor has been Approved successfully.",
@@ -132,11 +137,16 @@ export default {
 .primary-login {
   width: 500px;
   background: #fff;
-  height: 550px;
   padding: 25px 25px 0 25px;
   border-radius: 20px;
   position: relative;
-  overflow: scroll;
+}
+.service-popup {
+  height: 400px;
+  overflow-y: scroll;
+}
+.service-popup::-webkit-scrollbar {
+  display: none;
 }
 .primary-login::-webkit-scrollbar {
   display: none;
@@ -199,6 +209,7 @@ export default {
 }
 .add-btn {
   width: 50%;
+  margin:10px;
 }
 .add-btn button {
   border: none;

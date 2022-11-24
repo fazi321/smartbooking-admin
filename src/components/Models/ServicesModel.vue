@@ -7,56 +7,69 @@
       <div class="service-heading">
         <h2>Service Details</h2>
       </div>
-      <div class="service-details">
-        <h3>Service Details</h3>
-        <div>
-          <p>Service Name</p>
-          <p>{{ service.description.nameInEnglish }}</p>
-        </div>
-        <div>
-          <p>Service Address</p>
-          <p>{{ service.address.address }}</p>
-        </div>
-        <div>
-          <p>Total Bookings</p>
-          <p>Lorem Ipsum</p>
-        </div>
-      </div>
-      <div class="service-details booking-detail">
-        <h3>Vendor Details</h3>
-        <div>
-          <p>Vendor Name</p>
-          <p>
-            {{ service.vender && service.vender.firstName }}
-            {{ service.vender && service.vender.lastName }}
-          </p>
-        </div>
-        <div>
-          <p>Mobile Number</p>
-          <p>{{ service.vender && service.vender.phone }}</p>
-        </div>
-        <div>
-          <p>Email</p>
-          <p>{{ service.vender && service.vender.email }}</p>
-        </div>
-        <div>
-          <p>Address</p>
-          <p>{{ service.vender && service.vender.address }}</p>
-        </div>
-        <div>
-          <p>Commmercial ID No</p>
-          <p>{{ service.vender && service.vender.commId }}</p>
-        </div>
-      </div>
-      <div class="id-image">
-        <div>
-          <h3>Commercial ID Image</h3>
-          <div class="placeholder-img">
-            <img src="../../assets/images/placeholder.png" />
+      <section class="service-popup">
+        <div class="service-details">
+          <h3>Service Details</h3>
+          <div>
+            <p>Service Name</p>
+            <p>{{ service.description.nameInEnglish }}</p>
+          </div>
+          <div>
+            <p>Service Address</p>
+            <p>{{ service.address.address }}</p>
+          </div>
+          <div>
+            <p>Total Bookings</p>
+            <p>{{ service.totalBooking ? service.totalBooking : 0 }}</p>
           </div>
         </div>
+        <div class="service-details booking-detail">
+          <h3>Vendor Details</h3>
+          <div>
+            <p>Vendor Name</p>
+            <p>
+              {{ service.vender && service.vender.firstName }}
+              {{ service.vender && service.vender.lastName }}
+            </p>
+          </div>
+          <div>
+            <p>Mobile Number</p>
+            <p>{{ service.vender && service.vender.phone }}</p>
+          </div>
+          <div>
+            <p>Email</p>
+            <p>{{ service.vender && service.vender.email }}</p>
+          </div>
+          <div>
+            <p>Address</p>
+            <p>{{ service.vender && service.vender.address }}</p>
+          </div>
+          <div>
+            <p>Commmercial ID No</p>
+            <p>{{ service.vender && service.vender.commId }}</p>
+          </div>
+        </div>
+        <div class="id-image">
+          <div>
+            <h3>Commercial ID Image</h3>
+            <div class="placeholder-img" v-if="!service.vender.file">
+              <img src="../../assets/images/placeholder.png" />
+              <!-- <img src="../../assets/images/placeholder.png" /> -->
+            </div>
+            <div class="placeholder-img" v-else>
+              <img :src="service.vender.file" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="id-image">
         <div class="add-btn">
-          <button @click="Approve">Approve</button>
+          <button @click="Approve" v-if="$route.query.type === 'pending'">
+            Approve
+          </button>
+          <button @click="Suspend" v-else-if="$route.query.type === 'approved'">
+            Suspend
+          </button>
         </div>
       </div>
     </div>
@@ -71,11 +84,11 @@ export default {
     return {};
   },
   methods: {
-    Approve() {
+    Suspend() {
       const imagePath = require("../../assets/images/cancelicon.png");
       this.$swal({
-        title: "You want to Approve?",
-        text: "You want to Approve the vendor?",
+        title: "You want to suspend/unpublish?",
+        text: "You want to suspend/unpublish the service?",
         imageUrl: imagePath,
         imageWidth: 100,
         imageHeight: 100,
@@ -87,38 +100,85 @@ export default {
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          // this.cancelConfirmed();
+          this.suspendConfirmed();
+        }
+      });
+    },
+    async suspendConfirmed() {
+      try {
+        var res = await this.$axios.put(
+          `admin/service/${this.service._id}/un-publish`
+        );
+        if (res) {
+          this.$emit("call");
+          this.$swal({
+            title: "Suspended",
+            text: "Your service has been Suspended successfully.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#FEBB12",
+            confirmButtonText: "Done",
+            reverseButtons: true,
+          });
+        }
+      } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Some Thing Went Wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        console.log(error);
+      }
+    },
+    Approve() {
+      const imagePath = require("../../assets/images/cancelicon.png");
+      this.$swal({
+        title: "You want to Approve?",
+        text: "You want to Approve the service?",
+        imageUrl: imagePath,
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+        confirmButtonColor: "#FEBB12",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.publishedConfirmed();
           console.log("result");
         }
       });
     },
-    // async cancelConfirmed() {
-    //   try {
-    //     var res = await this.$axios.get(
-    //       `admin/vender/accept/${this.selectedVendor._id}`
-    //     );
-    //     if (res) {
-    //       this.$emit('call')
-    //       this.$swal({
-    //         title: "Approved",
-    //         text: "Your vendor has been Approved successfully.",
-    //         icon: "success",
-    //         showCancelButton: false,
-    //         confirmButtonColor: "#FEBB12",
-    //         confirmButtonText: "Done",
-    //         reverseButtons: true,
-    //       });
-    //     }
-    //   } catch (error) {
-    //     this.$swal({
-    //       icon: "error",
-    //       title: "Some Thing Went Wrong!",
-    //       showConfirmButton: false,
-    //       timer: 3000,
-    //     });
-    //     console.log(error);
-    //   }
-    // },
+    async publishedConfirmed() {
+      try {
+        var res = await this.$axios.put(
+          `admin/service/${this.service._id}/publish`
+        );
+        if (res) {
+          this.$emit("call");
+          this.$swal({
+            title: "Approved",
+            text: "Your service has been Approved successfully.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#FEBB12",
+            confirmButtonText: "Done",
+            reverseButtons: true,
+          });
+        }
+      } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Some Thing Went Wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        console.log(error);
+      }
+    },
     closeSlide() {
       this.$parent.$parent.servicesModel = false;
     },
@@ -142,13 +202,15 @@ export default {
 .primary-login {
   width: 500px;
   background: #fff;
-  height: 550px;
   padding: 25px 25px 0 25px;
   border-radius: 20px;
   position: relative;
-  overflow: scroll;
 }
-.primary-login::-webkit-scrollbar {
+.service-popup {
+  height: 400px;
+  overflow-y: scroll;
+}
+.service-popup::-webkit-scrollbar {
   display: none;
 }
 .primary-login {
@@ -220,7 +282,7 @@ export default {
 }
 .add-btn {
   width: 50%;
-  margin-top: 20px;
+  margin: 20px;
 }
 .add-btn button {
   border: none;

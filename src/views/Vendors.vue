@@ -24,7 +24,7 @@
             </tr>
             <tr v-for="(vendor, index) in vendorList" :key="index">
               <td>{{ vendor.count }}</td>
-              <td>{{ vendor.firstName }}</td>
+              <td>{{ vendor.firstName.slice(0,10) }}</td>
               <td>{{ vendor.phone }}</td>
               <td>{{ vendor.email }}</td>
               <td>{{ vendor.address }}</td>
@@ -213,22 +213,16 @@ export default {
     },
     async getRequests() {
       try {
-        const pendingVendors = await this.$axios.get(
-          "admin/users/upgrade-request"
-        );
-        this.total = pendingVendors.data.total;
+        const vendors = await this.$axios.get("admin/all-venders");
+        this.total = vendors.data.length;
         //asigning number
         this.vendorData = [];
-        for (
-          let index = 0;
-          index < pendingVendors.data.requested_user.length;
-          index++
-        ) {
-          const element = pendingVendors.data.requested_user[index];
+        for (let index = 0; index < vendors.data.length; index++) {
+          const element = vendors.data[index];
           element.count = index + 1;
           this.vendorData.push(element);
         }
-        this.pageCount = Math.ceil(pendingVendors.data.total / this.dataShow);
+        this.pageCount = Math.ceil(vendors.data.total / this.dataShow);
         this.vendorList = this.vendorData.slice(0, this.dataShow);
       } catch (error) {
         console.log(error);
