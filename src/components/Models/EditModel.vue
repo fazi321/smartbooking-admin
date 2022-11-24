@@ -5,21 +5,36 @@
         <img src="../../assets/images/close-icon.svg" alt />
       </div>
       <div class="service-heading">
-        <h2>Add New Category</h2>
+        <h2>Edit Category</h2>
       </div>
       <form @submit="addNewCategory">
         <div class="category-content">
-          <input type="text" placeholder="City Name" v-model="name" required />
+          <input
+            type="text"
+            placeholder="City Name"
+            v-model="dataEdit.category"
+            required
+          />
           <div class="upload-file">
             <p>Add category image</p>
+            <div class="image-selected">
+              <div>
+                <img :src="!file ? dataEdit.image : urlImage" />
+              </div>
+            </div>
             <label for="inputTag" :class="{ active: err.file }">
-              Add image
-              <input id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" @change="handleFile" />
+              Update image
+              <input
+                id="inputTag"
+                type="file"
+                accept="image/png, image/gif, image/jpeg"
+                @change="handleFile"
+              />
             </label>
           </div>
           <div class="add-btn">
             <button type="submit" :disabled="loading">
-              {{ !loading ? "Add" : "Loading..." }}
+              {{ !loading ? "Update" : "Loading..." }}
             </button>
           </div>
         </div>
@@ -33,8 +48,10 @@ export default {
   name: "ModelCategory",
   data() {
     return {
-      name: "",
+      dataEdit: {},
       file: null,
+      // select image url
+      urlImage: "",
       //
       err: {},
       loading: false,
@@ -42,32 +59,46 @@ export default {
   },
   methods: {
     handleFile(event) {
-      let formData = new FormData();
-      formData.append("image", event.target.files[0]);
-      this.file = formData;
+      if (event.target.files && event.target.files[0]) {
+        let formData = new FormData();
+        formData.append("image", event.target.files[0]);
+        var reader = new FileReader();
+        var setImage = (url) => {
+          this.urlImage = url;
+        };
+        reader.onload = function (e) {
+          setImage(e.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        this.file = formData;
+      }
     },
     async addNewCategory(e) {
       e.preventDefault();
-      if (!this.file) {
+      if (!this.file && !this.dataEdit.image) {
         this.err.file = true;
         return;
       }
       this.loading = true;
       this.err.file = false;
-      var imageUrl = await this.uploadFiles();
-      this.add(imageUrl);
+      if (this.file) {
+        var imageUrl = await this.uploadFiles();
+        this.add(imageUrl);
+        return;
+      }
+      this.add();
     },
     async add(imageUrl) {
       try {
-        var res = this.$axios.post("/admin/add-category", {
-          category: this.name,
-          image: imageUrl,
+        var res = this.$axios.put(`/admin/category/${this.dataEdit._id}`, {
+          category: this.dataEdit.category,
+          image: imageUrl ? imageUrl : this.dataEdit.image,
         });
         if (res) {
           this.loading = false;
           this.$swal({
             icon: "success",
-            title: "New Category added successfully",
+            title: "Category updated successfully",
             showConfirmButton: false,
             timer: 3000,
           });
@@ -93,13 +124,32 @@ export default {
       }
     },
     closeSlide() {
-      this.$parent.$parent.categoryModel = false;
+      this.$parent.$parent.editModel = false;
     },
   },
 };
 </script>
 
 <style scoped>
+.image-selected {
+  display: flex;
+  justify-content: center;
+}
+.image-selected > div {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f0f2f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.image-selected > div img {
+  width: 45px;
+  height: 50px;
+}
 .login-signup {
   position: fixed;
   top: 0;
@@ -171,7 +221,7 @@ export default {
   letter-spacing: 0px;
   color: #393f45;
   font-size: 12px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   line-height: 1.8;
 }
 .upload-file label {

@@ -21,8 +21,11 @@
           </div>
           <h6>{{ cat.category }}</h6>
           <div class="bottom-icons">
-            <img src="../assets/images/edit.svg" />
-            <img src="../assets/images/delete.svg" @click="deleteCategory(cat._id)" />
+            <img src="../assets/images/edit.svg" @click="editCategory(cat)" />
+            <img
+              src="../assets/images/delete.svg"
+              @click="deleteCategory(cat._id)"
+            />
           </div>
         </div>
         <!-- <div class="category-card">
@@ -106,13 +109,15 @@
           </div>
         </div> -->
       </div>
-      <CategoriesModel v-if="categoryModel" />
+      <CategoriesModel v-if="categoryModel" @reCall="getData" />
+      <EditModel v-if="editModel" ref="edit" @reCall="getData" />
     </section>
   </default-layout>
 </template>
 
 <script>
 import CategoriesModel from "@/components/Models/ModelCategories.vue";
+import EditModel from "@/components/Models/EditModel.vue";
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
 
 export default {
@@ -120,11 +125,13 @@ export default {
   components: {
     DefaultLayout,
     CategoriesModel,
+    EditModel,
   },
   data() {
     return {
       categoryData: [],
       categoryModel: false,
+      editModel: false,
     };
   },
   mounted() {
@@ -141,8 +148,50 @@ export default {
         console.log(error);
       }
     },
+    editCategory(val) {
+      this.editModel = true;
+      setTimeout(() => {
+        this.$refs.edit.dataEdit = val;
+      }, 200);
+    },
     CategoryeModelShow() {
       this.categoryModel = !this.categoryModel;
+    },
+    async confirmDelete(id) {
+      try {
+        var res = await this.$axios.delete(`admin/category/${id}`);
+        if (res) {
+          this.$swal({
+            icon: "success",
+            title: "Deleted",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.getData();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    deleteCategory(categoryId) {
+      const imagePath = require("../assets/images/cancelicon.png");
+      this.$swal({
+        title: "You want to delete category?",
+        text: "You want to delete category?",
+        imageUrl: imagePath,
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+        confirmButtonColor: "#FEBB12",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.confirmDelete(categoryId);
+        }
+      });
     },
   },
 };
