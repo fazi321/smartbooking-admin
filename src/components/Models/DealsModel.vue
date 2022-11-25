@@ -7,25 +7,60 @@
       <div class="service-heading">
         <h2>Add New Deal</h2>
       </div>
-      <div class="category-content">
-        <div class="inputs">
-          <input type="text" placeholder="Deal Name" />
-          <input type="text" placeholder="Percentage" />
-          <input type="text" placeholder="Location" />
-          <input type="text" placeholder="Start Date" />
-          <input type="text" placeholder="Expiry Date" />
+      <form @submit="addNewDeal">
+        <div class="category-content">
+          <div class="inputs">
+            <input
+              type="text"
+              placeholder="Deal Name"
+              v-model="addDeal.dealName"
+              required
+            />
+            <input
+              type="number"
+              min="1"
+              placeholder="Percentage"
+              v-model="addDeal.percentage"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              v-model="addDeal.location"
+              required
+            />
+            <input
+              type="date"
+              placeholder="Start Date"
+              v-model="addDeal.startDate"
+              required
+            />
+            <input
+              type="date"
+              placeholder="Expiry Date"
+              v-model="addDeal.expiryDate"
+              required
+            />
+          </div>
+          <div class="upload-file">
+            <p>Add category image</p>
+            <label for="inputTag" :class="{ active: err.file }">
+              Add image
+              <input
+                id="inputTag"
+                type="file"
+                accept="image/png, image/gif, image/jpeg"
+                @change="handleFile"
+              />
+            </label>
+          </div>
+          <div class="add-btn">
+            <button type="submit" :disabled="loading">
+              {{ !loading ? "Add" : "Loading..." }}
+            </button>
+          </div>
         </div>
-        <div class="upload-file">
-          <p>Add category image</p>
-          <label for="inputTag">
-            Add image
-            <input id="inputTag" type="file" />
-          </label>
-        </div>
-        <div class="add-btn">
-          <button>Add</button>
-        </div>
-      </div>
+      </form>
     </div>
   </section>
 </template>
@@ -34,9 +69,70 @@
 export default {
   name: "DealModel",
   data() {
-    return {};
+    return {
+      addDeal: {},
+      file: null,
+      //
+      err: {},
+      loading: false,
+    };
   },
   methods: {
+    handleFile(event) {
+      if (event.target.files && event.target.files[0]) {
+        let formData = new FormData();
+        formData.append("image", event.target.files[0]);
+        this.err.file = false;
+        this.file = formData;
+      }
+    },
+    async addNewDeal(e) {
+      e.preventDefault();
+      if (!this.file) {
+        this.err.file = true;
+        return;
+      }
+      this.loading = true;
+      this.err.file = false;
+      var imageUrl = await this.uploadFiles();
+      this.add(imageUrl);
+    },
+    async add(imageUrl) {
+      var payload = this.addDeal;
+      payload.categoryImage = imageUrl;
+      try {
+        var res = await this.$axios.post(`/admin/deal`, payload);
+        if (res) {
+          this.loading = false;
+          this.$swal({
+            icon: "success",
+            title: "Deal added successfully",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          setTimeout(() => {
+            this.$emit("reCall", res.data);
+            this.closeSlide();
+          }, 3000);
+        }
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
+    async uploadFiles() {
+      try {
+        const imagesData = await this.$axios.post("user/upload", this.file, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        return imagesData.data.url;
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
     closeSlide() {
       this.$emit("close");
     },
@@ -135,6 +231,9 @@ export default {
   font-size: 12px;
   border-radius: 20px;
   box-shadow: 0 2px 4px 1px #c9c9c9a6;
+}
+.upload-file label.active {
+  border: 1px solid red !important;
 }
 .add-btn {
   margin: 40px 0 10px 0;

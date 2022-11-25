@@ -5,25 +5,47 @@
         <img src="../../assets/images/close-icon.svg" alt />
       </div>
       <div class="service-heading">
-        <h2>Edit Category</h2>
+        <h2>Add New Deal</h2>
       </div>
-      <form @submit="addNewCategory">
+      <form @submit="addNewDeal">
         <div class="category-content">
-          <input
-            type="text"
-            placeholder="City Name"
-            v-model="dataEdit.category"
-            required
-          />
+          <div class="inputs">
+            <input
+              type="text"
+              placeholder="Deal Name"
+              v-model="dataEdit.dealName"
+              required
+            />
+            <input
+              type="number"
+              min="1"
+              placeholder="Percentage"
+              v-model="dataEdit.percentage"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              v-model="dataEdit.location"
+              required
+            />
+            <input
+              type="date"
+              placeholder="Start Date"
+              v-model="dataEdit.startDate"
+              required
+            />
+            <input
+              type="date"
+              placeholder="Expiry Date"
+              v-model="dataEdit.expiryDate"
+              required
+            />
+          </div>
           <div class="upload-file">
             <p>Add category image</p>
-            <div class="image-selected">
-              <div>
-                <img :src="!file ? dataEdit.image : urlImage" />
-              </div>
-            </div>
             <label for="inputTag" :class="{ active: err.file }">
-              Update image
+              Add image
               <input
                 id="inputTag"
                 type="file"
@@ -62,20 +84,20 @@ export default {
       if (event.target.files && event.target.files[0]) {
         let formData = new FormData();
         formData.append("image", event.target.files[0]);
-        var reader = new FileReader();
-        var setImage = (url) => {
-          this.urlImage = url;
-        };
-        reader.onload = function (e) {
-          setImage(e.target.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
         this.file = formData;
+        // var reader = new FileReader();
+        // var setImage = (url) => {
+        //   this.urlImage = url;
+        // };
+        // reader.onload = function (e) {
+        //   setImage(e.target.result);
+        // };
+        // reader.readAsDataURL(event.target.files[0]);
       }
     },
-    async addNewCategory(e) {
+    async addNewDeal(e) {
       e.preventDefault();
-      if (!this.file && !this.dataEdit.image) {
+      if (!this.file && !this.dataEdit.categoryImage) {
         this.err.file = true;
         return;
       }
@@ -90,15 +112,19 @@ export default {
     },
     async add(imageUrl) {
       try {
-        var res = this.$axios.put(`/admin/category/${this.dataEdit._id}`, {
-          category: this.dataEdit.category,
-          image: imageUrl ? imageUrl : this.dataEdit.image,
+        var res = this.$axios.put(`/admin/deal/${this.dataEdit._id}`, {
+          dealName: this.dataEdit.dealName,
+          percentage: this.dataEdit.percentage,
+          location: this.dataEdit.location,
+          startDate: this.dataEdit.startDate,
+          expiryDate: this.dataEdit.expiryDate,
+          categoryImage: imageUrl ? imageUrl : this.dataEdit.categoryImage,
         });
         if (res) {
           this.loading = false;
           this.$swal({
             icon: "success",
-            title: "Category updated successfully",
+            title: "Deal updated successfully",
             showConfirmButton: false,
             timer: 3000,
           });
@@ -126,32 +152,13 @@ export default {
       }
     },
     closeSlide() {
-      this.$parent.$parent.editModel = false;
+      this.$emit("close");
     },
   },
 };
 </script>
 
 <style scoped>
-.image-selected {
-  display: flex;
-  justify-content: center;
-}
-.image-selected > div {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: #f0f2f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  margin: 10px 0;
-}
-.image-selected > div img {
-  width: 45px;
-  height: 50px;
-}
 .login-signup {
   position: fixed;
   top: 0;
@@ -165,7 +172,7 @@ export default {
   z-index: 99;
 }
 .primary-login {
-  width: 450px;
+  width: 700px;
   background: #fff;
   padding: 25px;
   border-radius: 20px;
@@ -196,18 +203,25 @@ export default {
   font-size: 18px;
 }
 .category-content {
-  padding: 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.category-content input {
+.category-content .inputs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.category-content .inputs input {
   outline: none;
   font-size: 12px;
-  padding: 18px 20px;
+  padding: 15px 20px;
   border-radius: 50px;
   border: none;
   box-shadow: 0px 0px 8px 2px #e9e8e8;
   color: #c4c4c4;
-  width: 90%;
-  margin: 40px 0 8px 0;
+  width: 25%;
+  margin: 20px 8px 8px 8px;
 }
 .upload-file input {
   display: none;
@@ -218,12 +232,13 @@ export default {
   box-shadow: 0px 0px 8px 2px #e9e8e8;
   border-radius: 20px;
   line-height: 1.8;
+  width: 40%;
 }
 .upload-file p {
   letter-spacing: 0px;
   color: #393f45;
   font-size: 12px;
-  /* padding-bottom: 20px; */
+  padding-bottom: 20px;
   line-height: 1.8;
 }
 .upload-file label {
@@ -240,6 +255,7 @@ export default {
 }
 .add-btn {
   margin: 40px 0 10px 0;
+  width: 40%;
 }
 .add-btn button {
   border: none;

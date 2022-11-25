@@ -207,7 +207,7 @@ export default {
   position: relative;
 }
 .service-popup {
-  height: 400px;
+  min-height: 260px;
   overflow-y: scroll;
 }
 .service-popup::-webkit-scrollbar {

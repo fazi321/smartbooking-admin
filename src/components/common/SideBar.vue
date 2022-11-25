@@ -41,18 +41,9 @@ export default {
   top: 0;
 }
 .inner-side .primary{
-  overflow-y: scroll;
-  height: 600px;
-}
-.inner-side .primary::-webkit-scrollbar {
-  width: 2px;
+  height: 100vh;
+  position: relative;
 }
 
-.inner-side::-webkit-scrollbar-track {
-  background: transparent;
-}
-.inner-side::-webkit-scrollbar-thumb {
-  background-color: transparent ;
-}
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <ul>
+    <ul class="menu-setUp">
       <li :class="{ active: $route.path == '/' && !isSelectedChilds }">
         <router-link to="/">
           <div class="list">
@@ -339,6 +339,10 @@ export default {
 </script>
 
 <style scoped>
+.menu-setUp {
+  height: 480px;
+  overflow-y: scroll;
+}
 .menu ul li .list {
   display: flex;
   align-items: center;
@@ -382,8 +386,18 @@ export default {
   font-size: 14px;
 }
 .logout-container {
-  height: 100px;
-  display: flex;
-  align-items: flex-end;
+  position: absolute;
+  bottom: 15%;
+  width: 100%;
+}
+.menu-setUp::-webkit-scrollbar {
+  width: 2px;
+}
+
+.menu-setUp::-webkit-scrollbar-track {
+  background: transparent;
+}
+.menu-setUp::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 </style>

@@ -145,7 +145,11 @@
           </table>
           <div class="bottom-container">
             <div>
-              <p>Showing 1 to {{ dataShow }} of {{ total }} entries</p>
+              <p>
+                Showing {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }} to
+                {{ vendorList[vendorList.length - 1] && vendorList[vendorList.length - 1].count }} of
+                {{ vendorData.length }} entries
+              </p>
             </div>
             <div class="service-pagination">
               <paginate
@@ -222,7 +226,7 @@ export default {
           element.count = index + 1;
           this.vendorData.push(element);
         }
-        this.pageCount = Math.ceil(vendors.data.total / this.dataShow);
+        this.pageCount = Math.ceil(this.total / this.dataShow);
         this.vendorList = this.vendorData.slice(0, this.dataShow);
       } catch (error) {
         console.log(error);

@@ -18,6 +18,8 @@
               <th>Location</th>
               <th>Start Date</th>
               <th>Expiry Date</th>
+              <th>Edit</th>
+              <th>Delete</th>
               <!-- <th>Action</th> -->
             </tr>
             <tr v-for="(deal, index) in serviceList" :key="index">
@@ -27,6 +29,18 @@
               <td>{{ address(deal.location) }}</td>
               <td>{{ getDate(deal.startDate) }}</td>
               <td>{{ getDate(deal.expiryDate) }}</td>
+              <td class="icon-deals">
+                <img
+                  src="../assets/images/edit.svg"
+                  @click="editModelShow(deal)"
+                />
+              </td>
+              <td class="icon-deals">
+                <img
+                  src="../assets/images/delete.svg"
+                  @click="deleteDeal(deal._id)"
+                />
+              </td>
               <!-- <td>Lorem Ipsum</td> -->
               <!-- <td>
                 <div class="view-btn" @click="servicesModelShow(service)">
@@ -37,7 +51,11 @@
           </table>
           <div class="bottom-container">
             <div>
-              <p>Showing 1 to 10 of 30 entries</p>
+              <p>
+                Showing {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }} to
+                {{ serviceList[serviceList.length - 1] && serviceList[serviceList.length - 1].count }} of
+                {{ serviceData.length }} entries
+              </p>
             </div>
             <div class="service-pagination">
               <paginate
@@ -55,7 +73,13 @@
           </div>
         </div>
       </div>
-      <DealsModel v-if="dealModel" :deal="selectedService" @close="close" />
+      <DealsModel v-if="dealModel" @reCall="pushData" @close="close" />
+      <EditDealModel
+        v-if="editDealModel"
+        @reCall="getDeals"
+        @close="close"
+        ref="edit"
+      />
     </section>
   </default-layout>
 </template>
@@ -63,6 +87,7 @@
 <script>
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
 import DealsModel from "@/components/Models/DealsModel.vue";
+import EditDealModel from "@/components/Models/EditDealModel.vue";
 import Paginate from "vuejs-paginate-next";
 
 export default {
@@ -71,15 +96,12 @@ export default {
     DefaultLayout,
     Paginate,
     DealsModel,
+    EditDealModel,
   },
-  // data() {
-  //   return {
-  //     dealeModel: false
-  //   };
-  // },
   data() {
     return {
       dealModel: false,
+      editDealModel: false,
       serviceData: [],
       serviceList: [],
       //
@@ -95,6 +117,82 @@ export default {
     this.getDeals();
   },
   methods: {
+    pushData(val) {
+      val.count = this.serviceData.length + 1;
+      this.serviceData.push(val);
+      this.clickCallback(this.pageSelected);
+      this.pageCount = Math.ceil(this.serviceData.length / this.dataShow);
+    },
+    deleteDeal(dealId) {
+      const imagePath = require("../assets/images/cancelicon.png");
+      this.$swal({
+        title: "You want to delete deal?",
+        text: "You want to delete deal?",
+        imageUrl: imagePath,
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+        confirmButtonColor: "#FEBB12",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.confirmDelete(dealId);
+        }
+      });
+    },
+    async confirmDelete(id) {
+      try {
+        var res = await this.$axios.delete(`admin/deal/${id}`);
+        if (res) {
+          this.$swal({
+            icon: "success",
+            title: "Deleted",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          setTimeout(() => {
+            this.serviceList = this.serviceList.filter((e) => {
+              return e._id != id;
+            });
+            this.serviceData = this.serviceData.filter((e) => {
+              return e._id != id;
+            });
+            this.pageCount = Math.ceil(this.serviceData.length / this.dataShow);
+            if (this.serviceList && !this.serviceList.length) {
+              if (this.pageSelected > 1) {
+                this.pageSelected = this.pageSelected - 1;
+                this.clickCallback(this.pageSelected);
+              }
+            }
+          }, 3000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getFormatedDate(dt) {
+      var date = new Date(dt);
+      var year = date.toLocaleString("default", { year: "numeric" });
+      var month = date.toLocaleString("default", { month: "2-digit" });
+      var day = date.toLocaleString("default", { day: "2-digit" });
+      var formattedDate = year + "-" + month + "-" + day;
+      return formattedDate;
+    },
+    editModelShow(val) {
+      if (val.startDate) {
+        val.startDate = this.getFormatedDate(val.startDate);
+      }
+      if (val.expiryDate) {
+        val.expiryDate = this.getFormatedDate(val.expiryDate);
+      }
+      this.editDealModel = true;
+      setTimeout(() => {
+        this.$refs.edit.dataEdit = val;
+      }, 200);
+    },
     getDate(val) {
       var d = new Date(val);
       return d.toLocaleDateString("en-GB");
@@ -135,6 +233,7 @@ export default {
     },
     close() {
       this.dealModel = false;
+      this.editDealModel = false;
     },
     // clickCallback(num) {
     //   this.$refs.slider.slideTo(num);
@@ -143,6 +242,10 @@ export default {
 };
 </script>
 <style scoped>
+.icon-deals img {
+  width: 40px;
+  cursor: pointer;
+}
 .top-heading {
   line-height: 1.8;
 }

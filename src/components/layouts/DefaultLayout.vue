@@ -22,7 +22,7 @@ export default {
 }
 .pages-slide{
   background: #F4F7FA;
-  width: 80%;
+  width: 76%;
   padding:20px 20px 45px 20px;
   height: 100vh;
 }

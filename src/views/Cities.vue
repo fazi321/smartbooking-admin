@@ -9,85 +9,18 @@
         <button @click="CityModelShow">Add New City</button>
       </div>
       <div class="category-main">
-        <router-link to="#" class="category-card">
+        <router-link
+          to="#"
+          class="category-card"
+          v-for="(city, index) in cities"
+          :key="index"
+        >
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/city-img.png" />
           </div>
-          <h6>Mecca</h6>
+          <h6>{{ city.city }}</h6>
           <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Madina</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Riyadh</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Dammam</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Taif</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Abha</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Chalets</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Tabuk</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
-          </div>
-        </router-link>
-        <router-link to="#" class="category-card">
-          <div class="icon">
-            <img src="../assets/images/city-img.png" />
-          </div>
-          <h6>Dhahran</h6>
-          <div class="bottom-icons">
-            <h3>2447</h3>
+            <h3>{{ city.count }}</h3>
           </div>
         </router-link>
       </div>
@@ -104,18 +37,32 @@ export default {
   name: "CityView",
   components: {
     DefaultLayout,
-    CityModel
+    CityModel,
   },
   data() {
     return {
-      cityModel: false
+      cityModel: false,
+      cities: [],
     };
   },
+  mounted() {
+    this.getData();
+  },
   methods: {
+    async getData() {
+      try {
+        var res = await this.$axios.get("admin/service-by-city");
+        if (res) {
+          this.cities = res.data;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     CityModelShow() {
       this.cityModel = !this.cityModel;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -162,7 +109,7 @@ export default {
 }
 .category-card {
   width: 16%;
-   margin: 0 0 -12px 0px;
+  margin: 0 0 -12px 0px;
   background: #fff;
   display: flex;
   flex-direction: column;

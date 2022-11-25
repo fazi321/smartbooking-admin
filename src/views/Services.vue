@@ -25,7 +25,7 @@
               <td>{{ service.count }}</td>
               <td>{{ service.description.nameInEnglish }}</td>
               <td>{{ address(service.address.address) }}</td>
-              <td>{{service.totalBooking ? service.totalBooking: 0}}</td>
+              <td>{{ service.totalBooking ? service.totalBooking : 0 }}</td>
               <td>
                 {{ service.vender && service.vender.firstName }}
                 {{ service.vender && service.vender.lastName }}
@@ -147,7 +147,16 @@
           </table>
           <div class="bottom-container">
             <div>
-              <p>Showing 1 to 10 of {{ total }} entries</p>
+              <p>
+                Showing
+                {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }}
+                to
+                {{
+                  serviceList[serviceList.length - 1] &&
+                  serviceList[serviceList.length - 1].count
+                }}
+                of {{ serviceData.length }} entries
+              </p>
             </div>
             <div class="service-pagination">
               <paginate
@@ -244,7 +253,7 @@ export default {
     close() {
       this.selectedService = false;
       this.servicesModel = false;
-      var {type} = this.$route.query;
+      var { type } = this.$route.query;
       this.getRequests(type);
     },
   },
