@@ -128,6 +128,81 @@
           </div>
         </router-link>
       </li>
+      <!-- cancelation-requests -->
+      <!-- <li
+        @click="slectedChild('cancel')"
+        :class="{
+          active:
+            isSelectedChilds == 'cancel' ||
+            $route.path == '/cancelation-requests',
+        }"
+      >
+        <div class="list">
+          <div class="svg">
+            <img class="black" src="../../assets/images/services.svg" alt="" />
+            <img
+              class="white"
+              src="../../assets/images/white-service.svg"
+              alt=""
+            />
+          </div>
+          <div class="content">Cancelation Request</div>
+        </div>
+      </li> -->
+      <!-- cancelation childs -->
+      <!-- <div
+        v-if="
+          isSelectedChilds == 'cancel' ||
+          ($route.path == '/cancelation-requests' && $route.query.type)
+        "
+      >
+        <li
+          :class="{
+            activee:
+              $route.path == '/cancelation-requests' &&
+              $route.query.type == 'pending',
+          }"
+        >
+          <router-link to="/cancelation-requests?type=pending">
+            <div class="list">
+              <div class="svg">
+                
+              </div>
+              <div class="content">Pending</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/cancelation-requests' && $route.query.type == 'approved',
+          }"
+        >
+          <router-link to="/cancelation-requests?type=approved">
+            <div class="list">
+              <div class="svg">
+                
+              </div>
+              <div class="content">Approved</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/cancelation-requests' && $route.query.type == 'rejected',
+          }"
+        >
+          <router-link to="/cancelation-requests?type=rejected">
+            <div class="list">
+              <div class="svg">
+              </div>
+              <div class="content">Rejected</div>
+            </div>
+          </router-link>
+        </li>
+      </div> -->
+      <!-- cencelation childs end -->
       <li
         @click="slectedChild('sr')"
         :class="{

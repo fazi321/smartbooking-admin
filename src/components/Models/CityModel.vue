@@ -7,34 +7,95 @@
       <div class="service-heading">
         <h2>Add New City</h2>
       </div>
-      <div class="category-content">
-        <input type="text" placeholder="City Name" />
-        <div class="upload-file">
-          <p>Add city image</p>
-          <label for="inputTag">
-            Add image
-            <input id="inputTag" type="file" />
-          </label>
+      <form @submit="addNewCategory">
+        <div class="category-content">
+          <input type="text" placeholder="City Name" v-model="name" required />
+          <div class="upload-file">
+            <p>Add category image</p>
+            <label for="inputTag" :class="{ active: err.file }">
+              Add image
+              <input id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" @change="handleFile" />
+            </label>
+          </div>
+          <div class="add-btn">
+            <button type="submit" :disabled="loading">
+              {{ !loading ? "Add" : "Loading..." }}
+            </button>
+          </div>
         </div>
-        <div class="add-btn">
-          <button>Add</button>
-        </div>
-      </div>
+      </form>
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  name: "ModelCategory",
+  name: "cityModel",
   data() {
-    return {};
+    return {
+      name: "",
+      file: null,
+      //
+      err: {},
+      loading: false,
+    };
   },
   methods: {
+    handleFile(event) {
+      let formData = new FormData();
+      formData.append("image", event.target.files[0]);
+      this.file = formData;
+    },
+    async addNewCategory(e) {
+      e.preventDefault();
+      if (!this.file) {
+        this.err.file = true;
+        return;
+      }
+      this.loading = true;
+      this.err.file = false;
+      var imageUrl = await this.uploadFiles();
+      this.add(imageUrl);
+    },
+    async add(imageUrl) {
+      try {
+        var res = this.$axios.post("/admin/city", {
+          name: this.name,
+          image: imageUrl,
+        });
+        if (res) {
+          this.loading = false;
+          this.$swal({
+            icon: "success",
+            title: "New City added successfully",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.closeSlide();
+          this.$emit("reCall");
+        }
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
+    async uploadFiles() {
+      try {
+        const imagesData = await this.$axios.post("user/upload", this.file, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        return imagesData.data.url;
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
     closeSlide() {
       this.$parent.$parent.cityModel = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -71,8 +132,8 @@ export default {
   top: 26px;
   position: absolute;
   right: 20px;
- width: 15px;
-    height: 15px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   z-index: 99;
 }
@@ -121,6 +182,9 @@ export default {
   font-size: 12px;
   border-radius: 20px;
   box-shadow: 0 2px 4px 1px #c9c9c9a6;
+}
+.upload-file label.active {
+  border: 1px solid red !important;
 }
 .add-btn {
   margin: 40px 0 10px 0;

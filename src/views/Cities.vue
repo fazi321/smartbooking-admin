@@ -18,13 +18,13 @@
           <div class="icon">
             <img class="hotel-icon" src="../assets/images/city-img.png" />
           </div>
-          <h6>{{ city.city }}</h6>
-          <div class="bottom-icons">
+          <h6>{{ city.name }}</h6>
+          <!-- <div class="bottom-icons">
             <h3>{{ city.count }}</h3>
-          </div>
+          </div> -->
         </router-link>
       </div>
-      <CityModel v-if="cityModel" />
+      <CityModel v-if="cityModel" @reCall="getData"/>
     </section>
   </default-layout>
 </template>
@@ -51,7 +51,8 @@ export default {
   methods: {
     async getData() {
       try {
-        var res = await this.$axios.get("admin/service-by-city");
+        // var res = await this.$axios.get("admin/service-by-city");
+        var res = await this.$axios.get("admin/city");
         if (res) {
           this.cities = res.data;
         }

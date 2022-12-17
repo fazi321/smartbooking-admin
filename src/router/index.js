@@ -7,6 +7,7 @@ import Notifications from "../views/Notifications.vue";
 import Booking from "../views/bookings.vue";
 import SMS from "../views/SMS.vue";
 import Services from "../views/Services.vue";
+import CancelationRequest from "../views/CancelationRequest.vue";
 import Cities from "../views/Cities.vue";
 import PaymentMethod from "../views/PaymentMethod.vue";
 import PaymentSettings from "../views/PaymentSettings.vue";
@@ -59,6 +60,11 @@ const routes = [
     path: "/services",
     name: "services",
     component: Services,
+  },
+  {
+    path: "/cancelation-requests",
+    name: "cancelation-requests",
+    component: CancelationRequest,
   },
   {
     path: "/settings/notifications",
