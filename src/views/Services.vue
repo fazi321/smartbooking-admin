@@ -279,7 +279,7 @@ export default {
   text-align: left;
   letter-spacing: 0px;
   color: #000000;
-  font-size: 18px;
+  font-size: 16px;
 }
 .top-heading p {
   text-align: left;

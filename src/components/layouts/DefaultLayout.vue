@@ -2,7 +2,7 @@
   <section>
     <div class="container primary-container">
       <SideBar />
-      <section class="pages-slide">
+      <section :class="['pages-slide',{'set-height': $route.path == '/add-user'}]">
         <slot />
       </section>
     </div>
@@ -25,5 +25,8 @@ export default {
   width: 76%;
   padding:20px 20px 45px 20px;
   height: 100vh;
+}
+.set-height{
+  height: auto;
 }
 </style>

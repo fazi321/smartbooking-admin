@@ -1,60 +1,187 @@
 <template>
   <default-layout>
     <section class="main-wrapper">
+      <div class="user-profile">
+        <Profile />
+      </div>
       <div class="top-heading">
-        <h2>Deals</h2>
-        <p>You can see all the deals here. Also you can add new deals.</p>
+        <h2>Users</h2>
+        <p>You can see all of the users here.</p>
       </div>
       <div class="add-btn">
-        <button @click="DealModelShow">Add New Deal</button>
+        <div>
+          <h2>Admin Panel Users</h2>
+        </div>
+        <div class="search-main">
+          <div class="search-container">
+            <input type="text" placeholder="Search here..." />
+            <img src="../assets/images/search.svg" />
+          </div>
+          <button>
+            <router-link to="add-user">Add New</router-link>
+          </button>
+        </div>
       </div>
       <div class="service-container">
         <div class="service-detail">
           <table>
             <tr>
               <th>ID</th>
+              <th>User ID</th>
               <th>Name</th>
-              <th>Percentage</th>
-              <th>Location</th>
-              <th>Start Date</th>
-              <th>Expiry Date</th>
-              <th>Edit</th>
-              <th>Delete</th>
-              <!-- <th>Action</th> -->
+              <th>Email</th>
+              <th>Mobile Number</th>
+              <th></th>
+              <th></th>
+              <!-- <th>Delete</th> -->
+              <th>Action</th>
             </tr>
             <tr v-for="(deal, index) in serviceList" :key="index">
               <td>{{ deal.count }}</td>
               <td>{{ deal.dealName }}</td>
               <td>{{ deal.percentage }}</td>
-              <td>{{ address(deal.location) }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="view-btn" @click="servicesModelShow(deal)">
+                  <button>Action</button>
+                </div>
+              </td>
+              <!-- <td>{{ address(deal.location) }}</td>
               <td>{{ getDate(deal.startDate) }}</td>
-              <td>{{ getDate(deal.expiryDate) }}</td>
-              <td class="icon-deals">
+              <td>{{ getDate(deal.expiryDate) }}</td> -->
+              <!-- <td class="icon-deals">
                 <img
                   src="../assets/images/edit.svg"
                   @click="editModelShow(deal)"
                 />
-              </td>
-              <td class="icon-deals">
+              </td> -->
+
+              <!-- <td class="icon-deals">
                 <img
                   src="../assets/images/delete.svg"
                   @click="deleteDeal(deal._id)"
                 />
-              </td>
+              </td> -->
               <!-- <td>Lorem Ipsum</td> -->
-              <!-- <td>
-                <div class="view-btn" @click="servicesModelShow(service)">
+            </tr>
+          </table>
+          <!-- <div class="bottom-container">
+            <div>
+              <p>
+                Showing
+                {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }}
+                to
+                {{
+                  serviceList[serviceList.length - 1] &&
+                  serviceList[serviceList.length - 1].count
+                }}
+                of {{ serviceData.length }} entries
+              </p>
+            </div>
+            <div class="service-pagination">
+              <paginate
+                v-model="pageSelected"
+                :page-range="3"
+                :margin-pages="2"
+                :page-count="pageCount"
+                :click-handler="clickCallback"
+                :prev-text="'Previous'"
+                :next-text="''"
+                :container-class="'pagination'"
+                :page-class="'page-item'"
+              ></paginate>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+    <!-- app users -->
+    <section class="main-wrapper">
+      <!-- <div class="top-heading">
+        <h2>Users</h2>
+        <p>You can see all of the users here.</p>
+      </div> -->
+      <div class="add-btn">
+        <div>
+          <h2>App Users</h2>
+        </div>
+        <div class="search-main">
+          <div class="search-container">
+            <input type="text" placeholder="Search here..." />
+            <img src="../assets/images/search.svg" />
+          </div>
+          <!-- <button @click="DealModelShow">Add New</button> -->
+          <div class="select-type">
+            <select name="user" id="user">
+              <option value="type">Select User Type</option>
+              <option value="Admin">Admin</option>
+              <option value="role">User Role</option>
+              <option value="Guest">Guest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="service-container">
+        <div class="service-detail">
+          <table>
+            <tr>
+              <th>Userv ID</th>
+              <th>User Name</th>
+              <th>User Type</th>
+              <th>Email</th>
+              <th>Mobile Number</th>
+              <th>Nationality</th>
+              <th>ID Number</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+            <tr v-for="(deal, index) in serviceList" :key="index">
+              <td>{{ deal.count }}</td>
+              <td>{{ deal.dealName }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>{{ deal.percentage }}</td>
+              <td>
+                <div class="view-btn" @click="appUserModelShow(service)">
                   <button>Action</button>
                 </div>
+              </td>
+              <!-- <td>{{ address(deal.location) }}</td>
+              <td>{{ getDate(deal.startDate) }}</td>
+              <td>{{ getDate(deal.expiryDate) }}</td> -->
+              <!-- <td class="icon-deals">
+                <img
+                  src="../assets/images/edit.svg"
+                  @click="editModelShow(deal)"
+                />
               </td> -->
+
+              <!-- <td class="icon-deals">
+                <img
+                  src="../assets/images/delete.svg"
+                  @click="deleteDeal(deal._id)"
+                />
+              </td> -->
+              <!-- <td>Lorem Ipsum</td> -->
             </tr>
           </table>
           <div class="bottom-container">
             <div>
               <p>
-                Showing {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }} to
-                {{ serviceList[serviceList.length - 1] && serviceList[serviceList.length - 1].count }} of
-                {{ serviceData.length }} entries
+                Showing
+                {{ pageSelected != 1 ? dataShow * pageSelected - dataShow : 1 }}
+                to
+                {{
+                  serviceList[serviceList.length - 1] &&
+                  serviceList[serviceList.length - 1].count
+                }}
+                of {{ serviceData.length }} entries
               </p>
             </div>
             <div class="service-pagination">
@@ -73,34 +200,33 @@
           </div>
         </div>
       </div>
-      <DealsModel v-if="dealModel" @reCall="pushData" @close="close" />
-      <EditDealModel
-        v-if="editDealModel"
-        @reCall="getDeals"
-        @close="close"
-        ref="edit"
-      />
+      <AdminModel v-if="adminModel" :service="selectedServices" />
+      <AppUserModel v-if="appUserModel" :service="selectedServices" />
     </section>
   </default-layout>
 </template>
 
 <script>
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
-import DealsModel from "@/components/Models/DealsModel.vue";
-import EditDealModel from "@/components/Models/EditDealModel.vue";
+// import DealsModel from "@/components/Models/DealsModel.vue";
+import AdminModel from "@/components/Models/AdminModel.vue";
+import AppUserModel from "@/components/Models/AppUserModel.vue";
 import Paginate from "vuejs-paginate-next";
+import Profile from "@/components/common/Profile.vue";
 
 export default {
   name: "DealsView",
   components: {
+    Profile,
     DefaultLayout,
     Paginate,
-    DealsModel,
-    EditDealModel,
+    AdminModel,
+    AppUserModel,
   },
   data() {
     return {
-      dealModel: false,
+      adminModel: false,
+      appUserModel:false,
       editDealModel: false,
       serviceData: [],
       serviceList: [],
@@ -117,6 +243,14 @@ export default {
     this.getDeals();
   },
   methods: {
+    servicesModelShow(val) {
+      this.selectedServices = val;
+      this.adminModel = true;
+    },
+    appUserModelShow(val) {
+      console.log(val)
+      this.appUserModel = true;
+    },
     pushData(val) {
       val.count = this.serviceData.length + 1;
       this.serviceData.push(val);
@@ -181,18 +315,6 @@ export default {
       var formattedDate = year + "-" + month + "-" + day;
       return formattedDate;
     },
-    editModelShow(val) {
-      if (val.startDate) {
-        val.startDate = this.getFormatedDate(val.startDate);
-      }
-      if (val.expiryDate) {
-        val.expiryDate = this.getFormatedDate(val.expiryDate);
-      }
-      this.editDealModel = true;
-      setTimeout(() => {
-        this.$refs.edit.dataEdit = val;
-      }, 200);
-    },
     getDate(val) {
       var d = new Date(val);
       return d.toLocaleDateString("en-GB");
@@ -231,10 +353,6 @@ export default {
         console.log(error);
       }
     },
-    close() {
-      this.dealModel = false;
-      this.editDealModel = false;
-    },
     // clickCallback(num) {
     //   this.$refs.slider.slideTo(num);
     // }
@@ -242,6 +360,11 @@ export default {
 };
 </script>
 <style scoped>
+.user-profile {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
 .icon-deals img {
   width: 40px;
   cursor: pointer;
@@ -266,17 +389,21 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+.add-btn a {
+  text-decoration: none;
+  color: #fff;
+}
 .add-btn button {
   border: none;
   outline: none;
   border-radius: 11px;
   background: #febb12;
   color: #fff;
-  padding: 12px 20px;
+  padding: 11px 20px;
   font-size: 14px;
   cursor: pointer;
   box-shadow: 0 2px 4px 1px #c9c9c9a6;
-  width: 17%;
+  min-width: 148px;
 }
 .service-detail {
   padding: 20px 0 40px 0;
@@ -342,6 +469,51 @@ export default {
   letter-spacing: 0px;
   color: #000000;
   opacity: 0.7;
+  font-size: 12px;
+}
+.add-btn {
+  justify-content: space-between;
+  align-items: center;
+}
+.add-btn h2 {
+  font-size: 16px;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+  overflow: hidden;
+  padding: 0 20px;
+  margin-right: 10px;
+}
+.search-main {
+  display: flex;
+}
+.search-container img {
+  width: 15px;
+}
+.search-container input {
+  outline: none;
+  border: none;
+  /* height: 38px; */
+  color: #828282;
+  width: 230px;
+}
+.select-type {
+  color: #828282;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+  overflow: hidden;
+  padding: 10px;
+}
+select {
+  outline: none;
+  border: none;
+  color: #828282;
+  padding: 0 5px;
   font-size: 12px;
 }
 </style>

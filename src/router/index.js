@@ -8,12 +8,14 @@ import Booking from "../views/bookings.vue";
 import SMS from "../views/SMS.vue";
 import Services from "../views/Services.vue";
 import CancelationRequest from "../views/CancelationRequest.vue";
+import Users from "../views/Users.vue";
 import Cities from "../views/Cities.vue";
 import PaymentMethod from "../views/PaymentMethod.vue";
 import PaymentSettings from "../views/PaymentSettings.vue";
 import ApiSettings from "../views/ApiSettings.vue";
 import BookingDetails from "../views/BookingDetails.vue";
 import Login from "../views/Login.vue";
+import AddUser from "../views/AddUser.vue";
 
 const routes = [
   {
@@ -62,6 +64,11 @@ const routes = [
     component: Services,
   },
   {
+    path: "/users",
+    name: "users",
+    component: Users,
+  },
+  {
     path: "/cancelation-requests",
     name: "cancelation-requests",
     component: CancelationRequest,
@@ -90,6 +97,10 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+  }, {
+    path: "/add-user",
+    name: "adduser",
+    component: AddUser,
   },
 ];
 

@@ -129,7 +129,7 @@
         </router-link>
       </li>
       <!-- cancelation-requests -->
-      <!-- <li
+      <li
         @click="slectedChild('cancel')"
         :class="{
           active:
@@ -137,6 +137,7 @@
             $route.path == '/cancelation-requests',
         }"
       >
+        <!-- <router-link to="/services"> -->
         <div class="list">
           <div class="svg">
             <img class="black" src="../../assets/images/services.svg" alt="" />
@@ -148,9 +149,10 @@
           </div>
           <div class="content">Cancelation Request</div>
         </div>
-      </li> -->
+        <!-- </router-link> -->
+      </li>
       <!-- cancelation childs -->
-      <!-- <div
+      <div
         v-if="
           isSelectedChilds == 'cancel' ||
           ($route.path == '/cancelation-requests' && $route.query.type)
@@ -166,7 +168,7 @@
           <router-link to="/cancelation-requests?type=pending">
             <div class="list">
               <div class="svg">
-                
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
               </div>
               <div class="content">Pending</div>
             </div>
@@ -175,13 +177,14 @@
         <li
           :class="{
             activee:
-              $route.path == '/cancelation-requests' && $route.query.type == 'approved',
+              $route.path == '/cancelation-requests' &&
+              $route.query.type == 'approved',
           }"
         >
           <router-link to="/cancelation-requests?type=approved">
             <div class="list">
               <div class="svg">
-                
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
               </div>
               <div class="content">Approved</div>
             </div>
@@ -190,19 +193,36 @@
         <li
           :class="{
             activee:
-              $route.path == '/cancelation-requests' && $route.query.type == 'rejected',
+              $route.path == '/cancelation-requests' &&
+              $route.query.type == 'rejected',
           }"
         >
           <router-link to="/cancelation-requests?type=rejected">
             <div class="list">
               <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
               </div>
               <div class="content">Rejected</div>
             </div>
           </router-link>
         </li>
-      </div> -->
+      </div>
       <!-- cencelation childs end -->
+      <li :class="{ active: $route.path == '/users' && !isSelectedChilds }">
+        <router-link to="/users">
+          <div class="list">
+            <div class="svg">
+              <img class="black" src="../../assets/images/deal.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-deal.svg"
+                alt=""
+              />
+            </div>
+            <div class="content">Users</div>
+          </div>
+        </router-link>
+      </li>
       <li
         @click="slectedChild('sr')"
         :class="{
