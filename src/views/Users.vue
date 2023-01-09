@@ -148,7 +148,7 @@
               <td>{{ deal.percentage }}</td>
               <td>{{ deal.percentage }}</td>
               <td>
-                <div class="view-btn" @click="appUserModelShow(service)">
+                <div class="view-btn" @click="appUserModelShow(deal)">
                   <button>Action</button>
                 </div>
               </td>
@@ -249,6 +249,7 @@ export default {
     },
     appUserModelShow(val) {
       console.log(val)
+       this.selectedServices = val;
       this.appUserModel = true;
     },
     pushData(val) {

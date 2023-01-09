@@ -46,12 +46,12 @@
         <div class="id-image">
           <div>
             <h3>Commercial ID Image</h3>
-            <div class="placeholder-img" v-if="!service?.vender.file">
+            <div class="placeholder-img" v-if="!service?.vender?.file">
               <img src="../../assets/images/placeholder.png" />
               <!-- <img src="../../assets/images/placeholder.png" /> -->
             </div>
             <div class="placeholder-img" v-else>
-              <img :src="service?.vender.file" />
+              <img :src="service?.vender?.file" />
             </div>
           </div>
         </div>
