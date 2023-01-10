@@ -297,6 +297,22 @@
           </div>
         </router-link>
       </li>
+      <!-- balance -->
+      <li :class="{ active: $route.path == '/balance' && !isSelectedChilds }">
+        <router-link to="/balance">
+          <div class="list">
+            <div class="svg">
+              <img class="black" src="../../assets/images/city.svg" alt="" />
+              <img
+                class="white"
+                src="../../assets/images/white-city.svg"
+                alt=""
+              />
+            </div>
+            <div class="content">Balance</div>
+          </div>
+        </router-link>
+      </li>
       <li
         @click="slectedChild('st')"
         :class="{
@@ -396,7 +412,107 @@
           </router-link>
         </li>
       </div>
-      <!-- Settings childs end -->
+      <!-- frontend childs end -->
+      <li
+        @click="slectedChild('fe')"
+        :class="{
+          active:
+            isSelectedChilds == 'fe' || $route.path.slice(0, 9) == '/frontend',
+        }"
+      >
+        <div class="list">
+          <div class="svg">
+            <img class="black" src="../../assets/images/settings.svg" alt="" />
+            <img
+              class="white"
+              src="../../assets/images/white-setting.svg"
+              alt=""
+            />
+          </div>
+          <div class="content">Frontend</div>
+        </div>
+      </li>
+      <!-- frontend childs -->
+      <div
+        v-if="
+          isSelectedChilds == 'fe' || $route.path.slice(0, 9) == '/frontend'
+        "
+      >
+        <li
+          :class="{
+            activee: $route.path == '/frontend/privacy-policy',
+          }"
+        >
+          <router-link to="/frontend/privacy-policy">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">Privacy Policy</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/frontend/faqs' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/frontend/faqs">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">FAQ's</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee: $route.path == '/frontend/terms' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/frontend/terms">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">Terms of Use</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/frontend/about-us' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/frontend/about-us">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">About us</div>
+            </div>
+          </router-link>
+        </li>
+        <li
+          :class="{
+            activee:
+              $route.path == '/settings/payment-method' && !isSelectedChilds,
+          }"
+        >
+          <router-link to="/settings/payment-method">
+            <div class="list">
+              <div class="svg">
+                <!-- <img src="../../assets/images/house.svg" alt="" /> -->
+              </div>
+              <div class="content">Payment Method</div>
+            </div>
+          </router-link>
+        </li>
+      </div>
+      <!-- frontend childs end -->
     </ul>
     <ul class="logout-container">
       <li @click="logOut">

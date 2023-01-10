@@ -10,12 +10,14 @@ import Services from "../views/Services.vue";
 import CancelationRequest from "../views/CancelationRequest.vue";
 import Users from "../views/Users.vue";
 import Cities from "../views/Cities.vue";
+import Balance from "../views/Balance.vue";
 import PaymentMethod from "../views/PaymentMethod.vue";
 import PaymentSettings from "../views/PaymentSettings.vue";
 import ApiSettings from "../views/ApiSettings.vue";
 import BookingDetails from "../views/BookingDetails.vue";
 import Login from "../views/Login.vue";
 import AddUser from "../views/AddUser.vue";
+import FrontEnd from "../views/FrontEnd.vue";
 
 const routes = [
   {
@@ -52,6 +54,11 @@ const routes = [
     path: "/cities",
     name: "cities",
     component: Cities,
+  },
+  {
+    path: "/balance",
+    name: "Balance",
+    component: Balance,
   },
   {
     path: "/deals",
@@ -92,6 +99,11 @@ const routes = [
     path: "/settings/payment-method",
     name: "payment-method",
     component: PaymentMethod,
+  },
+  {
+    path: "/Frontend/:page",
+    name: "Frontend",
+    component: FrontEnd,
   },
   {
     path: "/login",

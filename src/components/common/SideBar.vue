@@ -43,6 +43,7 @@ export default {
 .inner-side .primary{
   height: 100vh;
   position: relative;
+  border-top: 1px solid #dfdfdfa8;
 }
 
 
